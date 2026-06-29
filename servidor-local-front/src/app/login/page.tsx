@@ -1,0 +1,178 @@
+"use client";
+
+import Link from "next/link";
+import Image from "next/image"; // Importado para renderizar a foto
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation"; // Importado para fazer o redirecionamento
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+
+// 1. Definição das regras de validação usando Zod
+const loginSchema = z.object({
+  email: z.string().min(1, "O e-mail é obrigatório").email("Introduza um e-mail válido"),
+  password: z.string().min(6, "A senha deve ter pelo menos 6 caracteres"),
+});
+
+type LoginFormValues = z.infer<typeof loginSchema>;
+
+export default function LoginPage() {
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
+  // 2. Validação de Sessão Ativa (Se logado, vai direto para a /dashboard ou /page)
+  useEffect(() => {
+    // Substitui 'seu_token_ou_sessao' pela chave real que usas no localStorage ou Cookies
+    const token = localStorage.getItem("auth_token"); 
+    
+    if (token) {
+      // Se já tiver conta logada, redireciona imediatamente
+      router.push("/shop"); // Altera para a rota correta da tua app (ex: "/dashboard" ou "/")
+    }
+  }, [router]);
+
+  // 3. Configuração do React Hook Form integrado ao Zod
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormValues>({
+    resolver: zodResolver(loginSchema),
+  });
+
+  const onSubmit = (data: LoginFormValues) => {
+    setIsLoading(true);
+    console.log("Dados validados e prontos para envio:", data);
+    
+    // Simulação de login com sucesso
+    setTimeout(() => {
+      // Guarda o identificador de login (exemplo simples)
+      localStorage.setItem("auth_token", "user_logado_123");
+      setIsLoading(false);
+      
+      // Redireciona após o login com sucesso
+      router.push("/dashboard"); 
+    }, 1200);
+  };
+
+  return (
+    <div className="min-h-screen w-full flex bg-gray-50 antialiased selection:bg-gray-900 selection:text-white">
+      
+      {/* PAINEL ESQUERDO (Com a imagem da Chef Isabel) */}
+      <div className="hidden lg:flex lg:w-[45%] bg-white border-r border-gray-200/60 p-12 flex-col justify-between relative overflow-hidden">
+        {/* Imagem de Fundo Otimizada */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/WhatsApp Image 2026-05-27 at 09.03.38.jpeg" // Certifica-te de colocar a foto dentro da pasta public/ com este nome
+            alt="Delícias da Isabel"
+            fill
+            className="object-cover object-center brightness-[0.9]"
+            priority
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 45vw"
+          />
+        </div>
+
+        {/* Gradiente para garantir leitura do texto sobre a imagem */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/40 z-10" />
+
+        <div className="flex items-center gap-2 relative z-20">
+          <div className="h-6 w-6 rounded-lg bg-white flex items-center justify-center">
+            <div className="h-2 w-2 rounded-full bg-gray-950 animate-pulse" />
+          </div>
+          <span className="text-sm font-semibold tracking-tight text-white">Plataforma Delícias</span>
+        </div>
+
+        <div className="space-y-3 relative z-20 max-w-sm text-white">
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/10 backdrop-blur-md border border-white/20 text-[11px] font-medium text-white">
+            Autêntica e Aconchegante
+          </div>
+          <h2 className="text-4xl font-bold tracking-tight leading-tight">
+            Delícias da Isabel
+          </h2>
+          <p className="text-gray-200 text-sm">
+            Culinária Autêntica e Aconchegante. Gerencie o seu restaurante num só lugar.
+          </p>
+        </div>
+        
+        <p className="text-xs text-gray-300 relative z-20">&copy; 2026 Delícias da Isabel Lda. Todos os direitos reservados.</p>
+      </div>
+
+      {/* PAINEL DIREITO (Formulário) */}
+      <div className="flex-1 flex items-center justify-center px-4 sm:px-6 py-12 relative">
+        <div className="w-full max-w-[360px] space-y-8">
+          
+          <div className="space-y-2">
+            <h1 className="text-2xl font-medium tracking-tight text-gray-950">Aceder à Plataforma</h1>
+            <p className="text-sm text-gray-400">Introduza as suas credenciais para gerir o seu restaurante.</p>
+          </div>
+
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            <div className="space-y-3">
+              
+              {/* Input E-mail */}
+              <div>
+                <div className={`relative group border rounded-2xl transition-all duration-300 bg-white ${
+                  errors.email ? "border-red-400 focus-within:border-red-500 focus-within:shadow-[0_0_0_1px_rgba(239,68,68,1)]" : "border-gray-200/80 focus-within:border-gray-950 focus-within:shadow-[0_0_0_1px_rgba(3,7,18,1)]"
+                }`}>
+                  <input
+                    type="text"
+                    {...register("email")}
+                    placeholder=" "
+                    disabled={isLoading}
+                    className="block w-full px-4 pt-6 pb-2 text-sm text-gray-950 bg-transparent outline-none rounded-2xl peer disabled:opacity-50"
+                  />
+                  <label className="absolute text-xs text-gray-400 duration-200 transform -translate-y-3.5 scale-90 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-90 peer-focus:-translate-y-3.5 peer-focus:text-gray-950 pointer-events-none font-medium">
+                    Endereço de e-mail
+                  </label>
+                </div>
+                {errors.email && <p className="text-[11px] text-red-500 font-medium mt-1 ml-2">{errors.email.message}</p>}
+              </div>
+
+              {/* Input Senha */}
+              <div>
+                <div className={`relative group border rounded-2xl transition-all duration-300 bg-white ${
+                  errors.password ? "border-red-400 focus-within:border-red-500 focus-within:shadow-[0_0_0_1px_rgba(239,68,68,1)]" : "border-gray-200/80 focus-within:border-gray-950 focus-within:shadow-[0_0_0_1px_rgba(3,7,18,1)]"
+                }`}>
+                  <input
+                    type="password"
+                    {...register("password")}
+                    placeholder=" "
+                    disabled={isLoading}
+                    className="block w-full px-4 pt-6 pb-2 text-sm text-gray-950 bg-transparent outline-none rounded-2xl peer disabled:opacity-50"
+                  />
+                  <label className="absolute text-xs text-gray-400 duration-200 transform -translate-y-3.5 scale-90 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-90 peer-focus:-translate-y-3.5 peer-focus:text-gray-950 pointer-events-none font-medium">
+                    Senha
+                  </label>
+                </div>
+                {errors.password && <p className="text-[11px] text-red-500 font-medium mt-1 ml-2">{errors.password.message}</p>}
+              </div>
+
+            </div>
+
+            <div className="flex items-center justify-end pt-1">
+              <a href="#" className="text-xs font-medium text-gray-400 hover:text-gray-950 transition-colors">
+                Esqueceu a senha?
+              </a>
+            </div>
+
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="w-full bg-gray-950 hover:bg-gray-900 text-white py-3 rounded-2xl text-sm font-medium transition-all duration-200 active:scale-[0.98] shadow-sm mt-2 flex items-center justify-center min-h-[46px]"
+            >
+              {isLoading ? "A processar..." : "Entrar no Painel de Controlo"}
+            </button>
+          </form>
+
+          <p className="text-center text-xs text-gray-400 pt-4">
+            Não tem uma conta?{" "}
+            <Link href="/cadastro" className="font-semibold text-gray-950 hover:underline underline-offset-4">
+              Solicitar registo de Chef
+            </Link>
+          </p>
+
+        </div>
+      </div>
+    </div>
+  );
+}
