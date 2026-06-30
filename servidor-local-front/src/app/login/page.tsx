@@ -51,12 +51,12 @@ export default function LoginPage() {
       setIsLoading(false);
       
       // Redireciona após o login com sucesso
-      router.push("/dashboard"); 
-    }, 1200);
+    window.location.href = "/shop"; 
+  }, 1200);
   };
 
   return (
-    <div className="min-h-screen w-full flex bg-gray-50 antialiased selection:bg-gray-900 selection:text-white">
+    <div className="min-h-screen w-full flex bg-gradient-to-b from-amber-50/50 to-white antialiased selection:bg-amber-600 selection:text-white">
       
       {/* PAINEL ESQUERDO (Com a imagem da Chef Isabel) */}
       <div className="hidden lg:flex lg:w-[45%] bg-white border-r border-gray-200/60 p-12 flex-col justify-between relative overflow-hidden">
@@ -73,17 +73,17 @@ export default function LoginPage() {
         </div>
 
         {/* Gradiente para garantir leitura do texto sobre a imagem */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/40 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-amber-950/80 via-black/20 to-black/40 z-10" />
 
         <div className="flex items-center gap-2 relative z-20">
-          <div className="h-6 w-6 rounded-lg bg-white flex items-center justify-center">
-            <div className="h-2 w-2 rounded-full bg-gray-950 animate-pulse" />
+          <div className="h-6 w-6 rounded-lg bg-amber-500 flex items-center justify-center">
+            <div className="h-2 w-2 rounded-full bg-white animate-pulse" />
           </div>
           <span className="text-sm font-semibold tracking-tight text-white">Plataforma Delícias</span>
         </div>
 
         <div className="space-y-3 relative z-20 max-w-sm text-white">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/10 backdrop-blur-md border border-white/20 text-[11px] font-medium text-white">
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-amber-500/20 backdrop-blur-md border border-amber-400/30 text-[11px] font-medium text-amber-100">
             Autêntica e Aconchegante
           </div>
           <h2 className="text-4xl font-bold tracking-tight leading-tight">
@@ -112,7 +112,7 @@ export default function LoginPage() {
               {/* Input E-mail */}
               <div>
                 <div className={`relative group border rounded-2xl transition-all duration-300 bg-white ${
-                  errors.email ? "border-red-400 focus-within:border-red-500 focus-within:shadow-[0_0_0_1px_rgba(239,68,68,1)]" : "border-gray-200/80 focus-within:border-gray-950 focus-within:shadow-[0_0_0_1px_rgba(3,7,18,1)]"
+                  errors.email ? "border-red-400 focus-within:border-red-500 focus-within:shadow-[0_0_0_1px_rgba(239,68,68,1)]" : "border-gray-200/80 focus-within:border-amber-500 focus-within:shadow-[0_0_0_1px_rgba(245,158,11,1)]"
                 }`}>
                   <input
                     type="text"
@@ -121,7 +121,7 @@ export default function LoginPage() {
                     disabled={isLoading}
                     className="block w-full px-4 pt-6 pb-2 text-sm text-gray-950 bg-transparent outline-none rounded-2xl peer disabled:opacity-50"
                   />
-                  <label className="absolute text-xs text-gray-400 duration-200 transform -translate-y-3.5 scale-90 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-90 peer-focus:-translate-y-3.5 peer-focus:text-gray-950 pointer-events-none font-medium">
+                  <label className="absolute text-xs text-gray-400 duration-200 transform -translate-y-3.5 scale-90 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-90 peer-focus:-translate-y-3.5 peer-focus:text-amber-700 pointer-events-none font-medium">
                     Endereço de e-mail
                   </label>
                 </div>
@@ -131,7 +131,7 @@ export default function LoginPage() {
               {/* Input Senha */}
               <div>
                 <div className={`relative group border rounded-2xl transition-all duration-300 bg-white ${
-                  errors.password ? "border-red-400 focus-within:border-red-500 focus-within:shadow-[0_0_0_1px_rgba(239,68,68,1)]" : "border-gray-200/80 focus-within:border-gray-950 focus-within:shadow-[0_0_0_1px_rgba(3,7,18,1)]"
+                  errors.password ? "border-red-400 focus-within:border-red-500 focus-within:shadow-[0_0_0_1px_rgba(239,68,68,1)]" : "border-gray-200/80 focus-within:border-amber-500 focus-within:shadow-[0_0_0_1px_rgba(245,158,11,1)]"
                 }`}>
                   <input
                     type="password"
@@ -140,7 +140,7 @@ export default function LoginPage() {
                     disabled={isLoading}
                     className="block w-full px-4 pt-6 pb-2 text-sm text-gray-950 bg-transparent outline-none rounded-2xl peer disabled:opacity-50"
                   />
-                  <label className="absolute text-xs text-gray-400 duration-200 transform -translate-y-3.5 scale-90 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-90 peer-focus:-translate-y-3.5 peer-focus:text-gray-950 pointer-events-none font-medium">
+                  <label className="absolute text-xs text-gray-400 duration-200 transform -translate-y-3.5 scale-90 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-90 peer-focus:-translate-y-3.5 peer-focus:text-amber-700 pointer-events-none font-medium">
                     Senha
                   </label>
                 </div>
@@ -150,7 +150,7 @@ export default function LoginPage() {
             </div>
 
             <div className="flex items-center justify-end pt-1">
-              <a href="#" className="text-xs font-medium text-gray-400 hover:text-gray-950 transition-colors">
+              <a href="#" className="text-xs font-medium text-gray-400 hover:text-amber-600 transition-colors">
                 Esqueceu a senha?
               </a>
             </div>
@@ -158,7 +158,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-gray-950 hover:bg-gray-900 text-white py-3 rounded-2xl text-sm font-medium transition-all duration-200 active:scale-[0.98] shadow-sm mt-2 flex items-center justify-center min-h-[46px]"
+              className="w-full bg-amber-500 hover:bg-amber-600 text-white py-3 rounded-2xl text-sm font-bold transition-all duration-200 active:scale-[0.98] shadow-md shadow-amber-500/20 mt-2 flex items-center justify-center min-h-[46px]"
             >
               {isLoading ? "A processar..." : "Entrar no Painel de Controlo"}
             </button>
@@ -166,7 +166,7 @@ export default function LoginPage() {
 
           <p className="text-center text-xs text-gray-400 pt-4">
             Não tem uma conta?{" "}
-            <Link href="/cadastro" className="font-semibold text-gray-950 hover:underline underline-offset-4">
+            <Link href="/cadastro" className="font-semibold text-amber-600 hover:text-amber-700 hover:underline underline-offset-4 transition-colors">
               Solicitar registo de Chef
             </Link>
           </p>

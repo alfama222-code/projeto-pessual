@@ -1,5 +1,5 @@
 // src/app/(shop)/layout.tsx
-import Navbar from "./components/Navbar";
+import { CartProvider } from "@/src/context/CartContext";
 
 export default function ShopLayout({
   children,
@@ -8,8 +8,9 @@ export default function ShopLayout({
 }) {
   return (
     <>
-      <Navbar />
-      {children}
+      <CartProvider>
+        {children}
+      </CartProvider>
     </>
   );
 }
