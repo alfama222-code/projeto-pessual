@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
-// 1. Definição das regras de validação usando Zod (Igual ao padrão do login + novos campos)
+// 1. Definição das regras de validação usando Zod
 const cadastroSchema = z.object({
   name: z.string().min(3, "O nome deve ter pelo menos 3 caracteres"),
   email: z.string().min(1, "O e-mail é obrigatório").email("Introduza um e-mail válido"),
@@ -22,9 +22,10 @@ type CadastroFormValues = z.infer<typeof cadastroSchema>;
 
 export default function CadastroPage() {
   const [isLoading, setIsLoading] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
   const router = useRouter();
 
-  // 2. Validação de Sessão Ativa (Se logado, vai direto para o /shop)
+  // 2. Validação de Sessão Ativa
   useEffect(() => {
     const token = localStorage.getItem("auth_token"); 
     if (token) {
@@ -41,16 +42,38 @@ export default function CadastroPage() {
     resolver: zodResolver(cadastroSchema),
   });
 
-  const onSubmit = (data: CadastroFormValues) => {
+  const onSubmit = async (data: CadastroFormValues) => {
     setIsLoading(true);
-    console.log("Dados do Chef validados e prontos para envio:", data);
-    
-    // Simulação de cadastro e redirecionamento para o Login
-    setTimeout(() => {
+    setServerError(null);
+
+    try {
+      // 4. Chamada real para o teu endpoint de cadastro do backend
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          password: data.password, // O backend vai receber e passar pelo Bcrypt
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || "Ocorreu um erro ao efetuar o registo.");
+      }
+
+      // Sucesso! Redireciona para o login
+      router.push("/login");
+    } catch (error: any) {
+      console.error("Erro no cadastro:", error.message);
+      setServerError(error.message);
+    } finally {
       setIsLoading(false);
-      alert("Solicitação de registo enviada com sucesso!");
-      router.push("/login"); 
-    }, 1500);
+    }
   };
 
   return (
@@ -59,7 +82,7 @@ export default function CadastroPage() {
       {/* CARD DO FORMULÁRIO CENTRALIZADO */}
       <div className="w-full max-w-[360px] space-y-8">
         
-        {/* Cabeçalho identico ao Login */}
+        {/* Cabeçalho */}
         <div className="space-y-2">
           <h1 className="text-2xl font-medium tracking-tight text-gray-950">Solicitar Registo</h1>
           <p className="text-sm text-gray-400">Insira os seus dados para criar o seu perfil de Chef na plataforma.</p>
@@ -145,6 +168,13 @@ export default function CadastroPage() {
             </div>
 
           </div>
+
+          {/* Exibição de Erro do Servidor (ex: Email já registado) */}
+          {serverError && (
+            <div className="p-3 bg-red-50 border border-red-200 text-red-600 text-xs font-medium rounded-xl text-center">
+              {serverError}
+            </div>
+          )}
 
           <button
             type="submit"

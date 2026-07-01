@@ -5,31 +5,36 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { name, email, password } = body;
 
-    // 1. Validação simples
-    if (!name || !email || !password) {
+    // 1. Validação básica de campos vazios
+    if (!email || !password || !name) {
       return NextResponse.json(
-        { message: "Todos os campos são obrigatórios." },
+        { message: "Por favor, preenche todos os campos necessários." },
         { status: 400 }
       );
     }
 
-    // [AQUI ENTRA SEU BANCO DE DADOS]
-    // Exemplo fictício com Prisma:
-    // const userExists = await prisma.user.findUnique({ where: { email } });
-    // if (userExists) return NextResponse.json({ message: "E-mail já cadastrado." }, { status: 400 });
-    // const newUser = await prisma.user.create({ data: { name, email, password: hashPassword(password) } });
+    // 2. Simulação de validação (Exemplo: bloquear um email que já "existiria")
+    if (email === "admin@teste.com") {
+      return NextResponse.json(
+        { message: "Este email já está registado no sistema." },
+        { status: 400 }
+      );
+    }
 
-    console.log("Dados recebidos no servidor:", { name, email, password });
-
-    // Simulando que o cadastro salvou com sucesso
+    // 3. Resposta de sucesso simulada
+    // Como não temos base de dados, fingimos que guardamos e enviamos um OK
     return NextResponse.json(
-      { message: "Usuário criado com sucesso!", user: { name, email } },
+      { 
+        message: "Utilizador registado com sucesso!",
+        user: { id: "mock-id-999", name, email }
+      },
       { status: 201 }
     );
 
-  } catch (error) {
+  } catch (error: any) {
+    console.error("Erro no registo simulado:", error);
     return NextResponse.json(
-      { message: "Erro interno no servidor." },
+      { message: "Ocorreu um erro interno no servidor ao registar." },
       { status: 500 }
     );
   }

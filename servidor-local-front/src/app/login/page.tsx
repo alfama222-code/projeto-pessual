@@ -23,8 +23,8 @@ export default function LoginPage() {
   // 2. Validação de Sessão Ativa (Se logado, vai direto para a /dashboard ou /page)
   useEffect(() => {
     // Substitui 'seu_token_ou_sessao' pela chave real que usas no localStorage ou Cookies
-    const token = localStorage.getItem("auth_token"); 
-    
+    const token = localStorage.getItem("auth_token");
+
     if (token) {
       // Se já tiver conta logada, redireciona imediatamente
       router.push("/shop"); // Altera para a rota correta da tua app (ex: "/dashboard" ou "/")
@@ -40,24 +40,58 @@ export default function LoginPage() {
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = (data: LoginFormValues) => {
+  // Adiciona um estado para gerir mensagens de erro vindas do servidor
+  const [serverError, setServerError] = useState<string | null>(null);
+
+  const onSubmit = async (data: LoginFormValues) => {
     setIsLoading(true);
-    console.log("Dados validados e prontos para envio:", data);
-    
-    // Simulação de login com sucesso
-    setTimeout(() => {
-      // Guarda o identificador de login (exemplo simples)
-      localStorage.setItem("auth_token", "user_logado_123");
+    setServerError(null);
+
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const contentType = response.headers.get("content-type");
+      let result = null;
+
+      // 1. Ler o texto puro primeiro para garantir que não está vazio
+      const responseText = await response.text();
+
+      // 2. Se houver texto e for JSON, fazemos o parse manualmente
+      if (responseText && contentType && contentType.includes("application/json")) {
+        result = JSON.parse(responseText);
+      }
+
+      // 3. Se a resposta não for OK, trata o erro
+      if (!response.ok) {
+        throw new Error(result?.message || "Credenciais inválidas ou erro no servidor.");
+      }
+
+      // 4. Se correu bem mas o teu backend não devolveu um token (veio vazio)
+      if (!result || !result.token) {
+        throw new Error("O servidor não retornou um token de autenticação válido.");
+      }
+
+      // 5. Sucesso absoluto
+      localStorage.setItem("auth_token", result.token);
+      router.push("/shop");
+
+    } catch (error: any) {
+      console.error("Erro no login:", error.message);
+      setServerError(error.message);
+    } finally {
       setIsLoading(false);
-      
-      // Redireciona após o login com sucesso
-    window.location.href = "/shop"; 
-  }, 1200);
+    }
   };
 
   return (
     <div className="min-h-screen w-full flex bg-gradient-to-b from-amber-50/50 to-white antialiased selection:bg-amber-600 selection:text-white">
-      
+
       {/* PAINEL ESQUERDO (Com a imagem da Chef Isabel) */}
       <div className="hidden lg:flex lg:w-[45%] bg-white border-r border-gray-200/60 p-12 flex-col justify-between relative overflow-hidden">
         {/* Imagem de Fundo Otimizada */}
@@ -93,14 +127,14 @@ export default function LoginPage() {
             Culinária Autêntica e Aconchegante. Gerencie o seu restaurante num só lugar.
           </p>
         </div>
-        
+
         <p className="text-xs text-gray-300 relative z-20">&copy; 2026 Delícias da Isabel Lda. Todos os direitos reservados.</p>
       </div>
 
       {/* PAINEL DIREITO (Formulário) */}
       <div className="flex-1 flex items-center justify-center px-4 sm:px-6 py-12 relative">
         <div className="w-full max-w-[360px] space-y-8">
-          
+
           <div className="space-y-2">
             <h1 className="text-2xl font-medium tracking-tight text-gray-950">Aceder à Plataforma</h1>
             <p className="text-sm text-gray-400">Introduza as suas credenciais para gerir o seu restaurante.</p>
@@ -108,12 +142,11 @@ export default function LoginPage() {
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="space-y-3">
-              
+
               {/* Input E-mail */}
               <div>
-                <div className={`relative group border rounded-2xl transition-all duration-300 bg-white ${
-                  errors.email ? "border-red-400 focus-within:border-red-500 focus-within:shadow-[0_0_0_1px_rgba(239,68,68,1)]" : "border-gray-200/80 focus-within:border-amber-500 focus-within:shadow-[0_0_0_1px_rgba(245,158,11,1)]"
-                }`}>
+                <div className={`relative group border rounded-2xl transition-all duration-300 bg-white ${errors.email ? "border-red-400 focus-within:border-red-500 focus-within:shadow-[0_0_0_1px_rgba(239,68,68,1)]" : "border-gray-200/80 focus-within:border-amber-500 focus-within:shadow-[0_0_0_1px_rgba(245,158,11,1)]"
+                  }`}>
                   <input
                     type="text"
                     {...register("email")}
@@ -130,9 +163,8 @@ export default function LoginPage() {
 
               {/* Input Senha */}
               <div>
-                <div className={`relative group border rounded-2xl transition-all duration-300 bg-white ${
-                  errors.password ? "border-red-400 focus-within:border-red-500 focus-within:shadow-[0_0_0_1px_rgba(239,68,68,1)]" : "border-gray-200/80 focus-within:border-amber-500 focus-within:shadow-[0_0_0_1px_rgba(245,158,11,1)]"
-                }`}>
+                <div className={`relative group border rounded-2xl transition-all duration-300 bg-white ${errors.password ? "border-red-400 focus-within:border-red-500 focus-within:shadow-[0_0_0_1px_rgba(239,68,68,1)]" : "border-gray-200/80 focus-within:border-amber-500 focus-within:shadow-[0_0_0_1px_rgba(245,158,11,1)]"
+                  }`}>
                   <input
                     type="password"
                     {...register("password")}
@@ -155,6 +187,12 @@ export default function LoginPage() {
               </a>
             </div>
 
+            {serverError && (
+              <div className="p-3 bg-red-50 border border-red-200 text-red-600 text-xs font-medium rounded-xl text-center">
+                {serverError}erro no login
+              </div>
+            )}
+
             <button
               type="submit"
               disabled={isLoading}
@@ -174,5 +212,5 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
-  );
+  )
 }
