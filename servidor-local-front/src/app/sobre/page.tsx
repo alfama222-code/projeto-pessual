@@ -108,8 +108,8 @@ export default function SobrePage() {
                 </div>
                 <div>
                   <p className="text-[10px] tracking-widest text-gray-400 font-bold block normal-case">Instagram</p>
-                  <a href="https://instagram.com/deliciasdaisabel" target="_blank" rel="noopener noreferrer" className="hover:text-amber-600 transition-colors">
-                    @deliciasdaisabel
+                  <a href="https://instagram.com/isabel.teixeira.92167" target="_blank" rel="noopener noreferrer" className="hover:text-amber-600 transition-colors">
+                    @isabelteixeira
                   </a>
                 </div>
               </div>
@@ -123,8 +123,8 @@ export default function SobrePage() {
                 </div>
                 <div>
                   <p className="text-[10px] tracking-widest text-gray-400 font-bold block normal-case">Facebook</p>
-                  <a href="https://facebook.com/deliciasdaisabel" target="_blank" rel="noopener noreferrer" className="hover:text-amber-600 transition-colors">
-                    Delícias da Isabel
+                  <a href="https://facebook.com/IsabelTeixeira" target="_blank" rel="noopener noreferrer" className="hover:text-amber-600 transition-colors">
+                    Isabel Teixeira
                   </a>
                 </div>
               </div>

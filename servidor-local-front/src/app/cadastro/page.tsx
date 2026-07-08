@@ -48,22 +48,26 @@ export default function CadastroPage() {
 
     try {
       // 4. Chamada real para o teu endpoint de cadastro do backend
-      const response = await fetch("/api/auth/register", {
+      const response = await fetch("http://localhost:3001/api/auth/registro", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name: data.name,
+          nome: data.name,
           email: data.email,
-          password: data.password, // O backend vai receber e passar pelo Bcrypt
+          senha: data.password, // O backend vai receber e passar pelo Bcrypt
         }),
       });
 
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.message || "Ocorreu um erro ao efetuar o registo.");
+        // Se for um erro de validação do Zod no backend, ele retorna os "detalhes"
+        if (result.detalhes && result.detalhes.length > 0) {
+          throw new Error(result.detalhes[0].mensagem);
+        }
+        throw new Error(result.erro || result.message || "Ocorreu um erro ao efetuar o registo.");
       }
 
       // Sucesso! Redireciona para o login

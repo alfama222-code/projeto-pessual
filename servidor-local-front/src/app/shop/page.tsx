@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCart } from "../../context/CartContext";
 import Navbar from "./components/Navbar";
+import { Info, CreditCard, X } from "lucide-react";
 
 export default function ShopPage() {
   const { cart, addToCart, decreaseQuantity, removeFromCart, cartTotal, clearCart } = useCart();
@@ -10,27 +11,31 @@ export default function ShopPage() {
   // Estado para controlar o filtro ativo ("todos" | "doce" | "salgado")
   const [filtro, setFiltro] = useState<"todos" | "doce" | "salgado">("todos");
 
-  // Lista de produtos atualizada com caminhos de imagens locais descritivas
-  const produtos: { id: string; name: string; type: "salgado" | "doce"; price: number; description: string; image: string }[] = [
-    { id: "1", name: "Coxinha de Frango Cream Cheese", type: "salgado", price: 120, description: "Frango desfiado com requeijão cremoso e casca super crocante.", image: "/images/coxinha-frango.jpg" },
-    { id: "2", name: "Brigadeiro Gourmet Belga", type: "doce", price: 80, description: "Chocolate belga 54% cacau granulado em raspas puras.", image: "/images/brigadeiro-belga.jpg" },
-    { id: "3", name: "Pastel de Chaves", type: "salgado", price: 150, description: "Massa folhada autêntica com recheio de carne bem temperada.", image: "/images/pastel-chaves.jpg" },
-    { id: "4", name: "Rissole de Camarão", type: "salgado", price: 180, description: "Salgado frito com recheio cremoso de camarão selecionado.", image: "/images/rissole-camarao.jpg" },
-    { id: "5", name: "Fatia de Bolo de Cenoura", type: "doce", price: 200, description: "Bolo fofinho com uma cobertura generosa de brigadeiro quente.", image: "/images/bolo-cenoura.jpg" },
-    { id: "6", name: "Pastel de Nata", type: "salgado", price: 130, description: "Receita tradicional com massa folhada crocante e creme no ponto ideal.", image: "/images/pastel-nata.jpg" },
-    { id: "7", name: "Empada de Camarão", type: "salgado", price: 180, description: "Empada feita com massa leve e recheio cremoso de camarão.", image: "/images/empada-camarao.jpg" },
-    { id: "8", name: "Bolo de Chocolate", type: "doce", price: 200, description: "Bolo fofinho com uma cobertura generosa de brigadeiro quente.", image: "/images/bolo-chocolate.jpg" },
-    { id: "9", name: "Bolo de Baunilha", type: "doce", price: 200, description: "Bolo fofinho com uma cobertura generosa de brigadeiro quente.", image: "/images/bolo-baunilha.jpg" },
-    { id: "10", name: "Torta de Limão", type: "doce", price: 220, description: "Torta cremosa com base crocante e cobertura de merengue.", image: "/images/torta-limao.jpg" },
-    { id: "11", name: "Mini Churros", type: "doce", price: 180, description: "Porção de mini churros com recheio de doce de leite.", image: "/images/mini-churos.jpg" },
-    { id: "12", name: "Quiche de Alho Poró", type: "salgado", price: 150, description: "Quiche leve com massa fina e recheio cremoso de alho poró.", image: "/images/quiche-alho-poro.jpg" },
-    { id: "13", name: "Empadão de Frango", type: "salgado", price: 190, description: "Empadão caseiro com massa podre e recheio suculento.", image: "/images/empadao-frango.jpg" },
-    { id: "14", name: "Mini Pizzas", type: "salgado", price: 160, description: "Mini pizzas variadas com massa fina e ingredientes selecionados.", image: "/images/mini-pizzas.jpg" },
-    { id: "15", name: "Coxinha de Carne Seca", type: "salgado", price: 140, description: "Coxinha recheada com carne seca desfiada e catupiry.", image: "/images/coxinha-carne-seca.jpg" },
-    { id: "16", name: "Sonho de Doce de Leite", type: "doce", price: 120, description: "Sonho recheado com doce de leite caseiro e cobertura açucarada.", image: "/images/sonho-doce-leite.jpg" },
-    { id: "17", name: "Rocambole de Brigadeiro", type: "doce", price: 230, description: "Rocambole fofo recheado com brigadeiro gourmet.", image: "/images/rocambole-brigadeiro.jpg" },
-    { id: "18", name: "Torta Holandesa", type: "doce", price: 250, description: "Torta gelada com base de biscoito, creme branco e cobertura de chocolate.", image: "/images/torta-holandesa.jpg" },
-  ];
+  // Estado para os produtos vindos da API
+  const [produtos, setProdutos] = useState<{ id: string; name: string; type: "salgado" | "doce"; price: number; description: string; image: string }[]>([]);
+  const [carregando, setCarregando] = useState(true);
+
+  // Estado para controlar se mostramos todos os produtos ou apenas alguns (ex: 6)
+  const [mostrarTodos, setMostrarTodos] = useState(false);
+
+  // Buscar produtos da API do backend
+  useEffect(() => {
+    const buscarProdutos = async () => {
+      try {
+        const resposta = await fetch("http://localhost:3001/api/produtos");
+        if (resposta.ok) {
+          const dados = await resposta.json();
+          setProdutos(dados);
+        }
+      } catch (erro) {
+        console.error("Erro ao buscar produtos da API:", erro);
+      } finally {
+        setCarregando(false);
+      }
+    };
+    
+    buscarProdutos();
+  }, []);
 
   // Filtra os produtos com base na escolha do utilizador
   const produtosFiltrados = produtos.filter((produto) => {
@@ -43,18 +48,39 @@ export default function ShopPage() {
     return item ? item.quantity : 0;
   };
 
-  const finalizarCompraWhatsApp = () => {
+  const [modalAberto, setModalAberto] = useState(false);
+  const [dadosCheckout, setDadosCheckout] = useState({
+    nome: "",
+    telefone: "",
+    local_de_entrega: "",
+    dia_da_entrega: ""
+  });
+
+  const abrirCheckout = () => {
     if (cart.length === 0) return alert("O seu carrinho está vazio!");
+    setModalAberto(true);
+  };
+
+  const enviarPedidoWhatsApp = (e: React.FormEvent) => {
+    e.preventDefault();
 
     let mensagem = `*Novo Pedido - Delícias da Isabel*\n\n`;
+    mensagem += `*DADOS DO CLIENTE*\n`;
+    mensagem += `Nome: ${dadosCheckout.nome}\n`;
+    mensagem += `Telefone: ${dadosCheckout.telefone}\n`;
+    mensagem += `Local de entrega: ${dadosCheckout.local_de_entrega}\n`;
+    mensagem += `Dia da entrega: ${dadosCheckout.dia_da_entrega}\n\n`;
+    
+    mensagem += `*ITENS*\n`;
     cart.forEach((item) => {
       mensagem += `• ${item.quantity}x ${item.name} (${(item.price * item.quantity).toFixed(2)} CVE)\n`;
     });
-    mensagem += `\n*Total:* ${cartTotal.toFixed(2)} CVE\n\n_Gostaria de confirmar a produção deste pedido?_`;
+    mensagem += `\n*Total a pagar:* ${cartTotal.toFixed(2)} CVE\n\n_Aguardo confirmação do pagamento de 50% para iniciar a produção!_`;
 
     const numeroWhatsApp = "2389814798";
     const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
     
+    setModalAberto(false);
     clearCart();
     window.open(url, "_blank");
   };
@@ -113,8 +139,14 @@ export default function ShopPage() {
             </div>
 
             {/* Grid de Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {produtosFiltrados.map((produto) => {
+            {carregando ? (
+              <div className="flex justify-center items-center py-24">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-600"></div>
+                <span className="ml-3 text-amber-800 font-bold tracking-widest uppercase text-xs">Carregando cardápio...</span>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {(mostrarTodos ? produtosFiltrados : produtosFiltrados.slice(0, 6)).map((produto) => {
                 const qtd = obterQuantidadeNoCarrinho(produto.id);
 
                 return (
@@ -187,7 +219,21 @@ export default function ShopPage() {
                   </div>
                 );
               })}
-            </div>
+              </div>
+            )}
+
+            {/* Botão de Mostrar Todos / Menos */}
+            {!carregando && produtosFiltrados.length > 6 && (
+              <div className="flex justify-center mt-12">
+                <button
+                  onClick={() => setMostrarTodos(!mostrarTodos)}
+                  className="text-[11px] font-black tracking-widest uppercase bg-white border-2 border-amber-100 text-amber-700 px-8 py-3.5 rounded-xl hover:bg-amber-50 hover:border-amber-200 transition-all shadow-sm active:scale-95"
+                >
+                  {mostrarTodos ? "Mostrar Menos" : "Mostrar Todos"}
+                </button>
+              </div>
+            )}
+
 
             {/* Caso o filtro não encontre nenhum produto */}
             {produtosFiltrados.length === 0 && (
@@ -245,10 +291,10 @@ export default function ShopPage() {
                 <span className="text-xl font-black text-amber-800">{cartTotal.toFixed(2)} CVE</span>
               </div>
               <button
-                onClick={finalizarCompraWhatsApp}
+                onClick={abrirCheckout}
                 className="w-full bg-gradient-to-r from-amber-600 to-amber-700 text-white text-xs font-black tracking-widest uppercase py-4 rounded-xl hover:from-amber-700 hover:to-amber-800 transition-all shadow-md shadow-amber-600/10 block text-center"
               >
-                Finalizar via WhatsApp
+                Continuar Pedido
               </button>
             </div>
           </aside>
@@ -305,6 +351,90 @@ export default function ShopPage() {
           </div>
         </div>
       </footer>
+
+      {/* MODAL DE CHECKOUT */}
+      {modalAberto && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
+          <div className="bg-white rounded-3xl w-full max-w-md overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
+            {/* Header */}
+            <div className="flex justify-between items-center p-6 border-b border-gray-100">
+              <h2 className="text-sm font-black tracking-widest uppercase text-amber-900">Detalhes do Pedido</h2>
+              <button onClick={() => setModalAberto(false)} className="text-gray-400 hover:text-red-500 transition-colors">
+                <X size={20} />
+              </button>
+            </div>
+
+            {/* Scrollable Content */}
+            <div className="overflow-y-auto p-6 space-y-6">
+              
+              {/* Formulário */}
+              <form id="checkout-form" onSubmit={enviarPedidoWhatsApp} className="space-y-4">
+                <div>
+                  <label className="text-[10px] font-black uppercase tracking-widest text-gray-500 block mb-1">Nome Completo</label>
+                  <input required type="text" value={dadosCheckout.nome} onChange={(e) => setDadosCheckout({...dadosCheckout, nome: e.target.value})} className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:border-amber-500 outline-none" />
+                </div>
+                <div>
+                  <label className="text-[10px] font-black uppercase tracking-widest text-gray-500 block mb-1">Número de Telefone</label>
+                  <input required type="tel" value={dadosCheckout.telefone} onChange={(e) => setDadosCheckout({...dadosCheckout, telefone: e.target.value})} className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:border-amber-500 outline-none" />
+                </div>
+                <div>
+                  <label className="text-[10px] font-black uppercase tracking-widest text-gray-500 block mb-1">Local de Entrega</label>
+                  <input required type="text" value={dadosCheckout.local_de_entrega} onChange={(e) => setDadosCheckout({...dadosCheckout, local_de_entrega: e.target.value})} className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:border-amber-500 outline-none" />
+                </div>
+                <div>
+                  <label className="text-[10px] font-black uppercase tracking-widest text-gray-500 block mb-1">Dia da Entrega</label>
+                  <input required type="text" placeholder="Ex: Sexta-feira às 14h" value={dadosCheckout.dia_da_entrega} onChange={(e) => setDadosCheckout({...dadosCheckout, dia_da_entrega: e.target.value})} className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:border-amber-500 outline-none" />
+                </div>
+              </form>
+
+              {/* Aviso da Política */}
+              <div className="bg-amber-50 border border-amber-200/70 rounded-2xl p-4 flex gap-3 items-start shadow-sm shadow-amber-500/5">
+                <div className="text-amber-600 mt-0.5 shrink-0">
+                  <Info size={16} />
+                </div>
+                <div className="space-y-1">
+                  <h4 className="text-[11px] font-black uppercase tracking-wider text-amber-900">Política de Produção</h4>
+                  <p className="text-[10px] text-amber-800/90 leading-relaxed uppercase tracking-wide font-medium">
+                    Nota importante: A produção e entrega do teu pedido só serão iniciadas após a confirmação do pagamento de <strong className="font-black text-amber-950">50% do valor total</strong>.
+                  </p>
+                </div>
+              </div>
+
+              {/* Banco */}
+              <div className="bg-neutral-900 text-white p-5 rounded-2xl space-y-3 font-mono shadow-inner relative overflow-hidden">
+                <div className="absolute -right-4 -bottom-4 w-24 h-24 bg-amber-500/10 rounded-full blur-xl" />
+                <div className="flex items-center gap-2 text-amber-500 mb-2">
+                  <CreditCard size={14} /> <span className="text-[10px] uppercase font-sans tracking-widest font-bold">Transferência BCA</span>
+                </div>
+                <div>
+                  <span className="text-[9px] text-neutral-400 block font-sans uppercase mb-0.5">Titular da Conta</span>
+                  <span className="text-white font-bold text-xs">Isabel Pina Teixeira</span>
+                </div>
+                <div className="pt-1">
+                  <span className="text-[9px] text-neutral-400 block font-sans uppercase mb-0.5">Número de Conta</span>
+                  <span className="text-sm text-white font-black tracking-widest block bg-neutral-800 px-3 py-2 rounded-xl">
+                    0001 2345 6789 10
+                  </span>
+                </div>
+              </div>
+              
+            </div>
+
+            {/* Footer */}
+            <div className="p-6 border-t border-gray-100 bg-gray-50 mt-auto">
+              <button 
+                type="submit"
+                form="checkout-form"
+                className="w-full bg-amber-500 hover:bg-amber-600 text-white font-black tracking-widest uppercase py-4 rounded-xl transition-all shadow-md shadow-amber-500/20 text-xs"
+              >
+                Confirmar e Enviar WhatsApp
+              </button>
+            </div>
+
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }

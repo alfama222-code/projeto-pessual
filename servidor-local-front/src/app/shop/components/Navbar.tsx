@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { User, LogOut, Trash2 } from "lucide-react";
+import { User, LogOut, Trash2, UtensilsCrossed } from "lucide-react";
 
 export default function Navbar() {
   const router = useRouter();
@@ -55,16 +55,16 @@ export default function Navbar() {
 
   return (
     <nav className="w-full bg-white border-b border-amber-100 sticky top-0 z-40 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        
-        {/* LOGO */}
-        <div 
-          onClick={() => router.push("/shop")} 
-          className="flex items-center gap-2 cursor-pointer font-black text-amber-800 uppercase tracking-wider text-sm"
-        >
-          <div className="h-3 w-3 bg-amber-500 rounded-full animate-pulse" />
-          Delícias da Isabel
-        </div>
+       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-2 cursor-pointer group" onClick={() => router.push("/shop")}>
+            <div className="bg-amber-500 text-white p-2 rounded-xl shadow-md shadow-amber-500/20 group-hover:scale-105 transition-transform">
+              <UtensilsCrossed size={20} />
+            </div>
+            <span className="text-xl font-extrabold tracking-tight bg-gradient-to-r from-amber-600 to-amber-800 bg-clip-text text-transparent">
+              Delícias da Isabel
+            </span>
+          </div>
+          
 
         {/* MENUS DIREITA */}
         <div className="flex items-center gap-4 relative">

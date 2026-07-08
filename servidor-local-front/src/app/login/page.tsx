@@ -48,12 +48,15 @@ export default function LoginPage() {
     setServerError(null);
 
     try {
-      const response = await fetch("/api/auth/login", {
+      const response = await fetch("http://localhost:3001/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          email: data.email,
+          senha: data.password
+        }),
       });
 
       const contentType = response.headers.get("content-type");
@@ -69,7 +72,10 @@ export default function LoginPage() {
 
       // 3. Se a resposta não for OK, trata o erro
       if (!response.ok) {
-        throw new Error(result?.message || "Credenciais inválidas ou erro no servidor.");
+        if (result?.detalhes && result.detalhes.length > 0) {
+          throw new Error(result.detalhes[0].mensagem);
+        }
+        throw new Error(result?.erro || result?.message || "Credenciais inválidas ou erro no servidor.");
       }
 
       // 4. Se correu bem mas o teu backend não devolveu um token (veio vazio)
@@ -77,8 +83,11 @@ export default function LoginPage() {
         throw new Error("O servidor não retornou um token de autenticação válido.");
       }
 
-      // 5. Sucesso absoluto
+      // 5. Sucesso absoluto: Salvar token e dados do usuário
       localStorage.setItem("auth_token", result.token);
+      if (result.usuario) {
+        localStorage.setItem("user_data", JSON.stringify(result.usuario));
+      }
       router.push("/shop");
 
     } catch (error: any) {
@@ -189,7 +198,7 @@ export default function LoginPage() {
 
             {serverError && (
               <div className="p-3 bg-red-50 border border-red-200 text-red-600 text-xs font-medium rounded-xl text-center">
-                {serverError}erro no login
+                {serverError}
               </div>
             )}
 
