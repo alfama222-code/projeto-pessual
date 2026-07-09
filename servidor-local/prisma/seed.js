@@ -2,7 +2,7 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 const produtos = [
-  { id: "1", name: "Coxinha de Frango Cream Cheese", type: "salgado", price: 120, description: "Frango desfiado com requeijão cremoso e casca super crocante.", image: "https://blog.amigofoods.com/wp-content/uploads/2019/05/coxinhas-brazilian-snack.jpg" },
+  { id: "1", name: "Coxinha de Frango Cream Cheese", type: "salgado", price: 120, description: "Frango desfiado com requeijão cremoso e casca super crocante.", image: "https://loremflickr.com/600/400/chicken,snack?lock=1" },
   { id: "2", name: "Brigadeiro Gourmet Belga", type: "doce", price: 80, description: "Chocolate belga 54% cacau granulado em raspas puras.", image: "https://loremflickr.com/600/400/brigadeiro,chocolate?lock=2" },
   { id: "3", name: "Pastel de Chaves", type: "salgado", price: 150, description: "Massa folhada autêntica com recheio de carne bem temperada.", image: "https://loremflickr.com/600/400/pastry,meat?lock=3" },
   { id: "4", name: "Rissole de Camarão", type: "salgado", price: 180, description: "Salgado frito com recheio cremoso de camarão selecionado.", image: "https://loremflickr.com/600/400/rissole,fried?lock=4" },
