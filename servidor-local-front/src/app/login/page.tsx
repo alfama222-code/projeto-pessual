@@ -133,7 +133,7 @@ export default function LoginPage() {
             Delícias da Isabel
           </h2>
           <p className="text-gray-200 text-sm">
-            Culinária Autêntica e Aconchegante. Gerencie o seu restaurante num só lugar.
+            Culinária Autêntica e Aconchegante. Gerencie a sua encomenda  num só lugar.
           </p>
         </div>
 
@@ -146,7 +146,7 @@ export default function LoginPage() {
 
           <div className="space-y-2">
             <h1 className="text-2xl font-medium tracking-tight text-gray-950">Aceder à Plataforma</h1>
-            <p className="text-sm text-gray-400">Introduza as suas credenciais para gerir o seu restaurante.</p>
+            <p className="text-sm text-gray-400">Introduza as suas credenciais para gerir a sua encomenda.</p>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">

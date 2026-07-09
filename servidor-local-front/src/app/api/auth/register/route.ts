@@ -24,7 +24,7 @@ export async function POST(request: Request) {
     // 3. Resposta de sucesso simulada
     // Como não temos base de dados, fingimos que guardamos e enviamos um OK
     return NextResponse.json(
-      { 
+      {
         message: "Utilizador registado com sucesso!",
         user: { id: "mock-id-999", name, email }
       },

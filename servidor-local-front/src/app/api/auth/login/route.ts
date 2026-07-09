@@ -15,8 +15,8 @@ export async function POST(request: Request) {
 
     // 2. UTILIZADOR FICTÍCIO PARA TESTES
     // Podes usar estes dados para fazer o login no teu ecrã!
-    const MOCK_EMAIL = "admin@teste.com";
-    const MOCK_PASSWORD = "password123";
+    const MOCK_EMAIL = "[EMAIL_ADDRESS]";
+    const MOCK_PASSWORD = "[PASSWORD]";
 
     // 3. Validar se as credenciais coincidem com o utilizador fictício
     if (email === MOCK_EMAIL && password === MOCK_PASSWORD) {

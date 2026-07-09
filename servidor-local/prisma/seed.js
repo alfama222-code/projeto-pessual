@@ -2,7 +2,7 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 const produtos = [
-  { id: "1", name: "Coxinha de Frango Cream Cheese", type: "salgado", price: 120, description: "Frango desfiado com requeijão cremoso e casca super crocante.", image: "https://tse4.mm.bing.net/th/id/OIP.IP-zKrRI4lo8_VEHwRn35AHaE8?r=0&cb=thfc1falcon4&rs=1&pid=ImgDetMain&o=7&rm=3" },
+  { id: "1", name: "Coxinha de Frango Cream Cheese", type: "salgado", price: 120, description: "Frango desfiado com requeijão cremoso e casca super crocante.", image: "https://blog.amigofoods.com/wp-content/uploads/2019/05/coxinhas-brazilian-snack.jpg" },
   { id: "2", name: "Brigadeiro Gourmet Belga", type: "doce", price: 80, description: "Chocolate belga 54% cacau granulado em raspas puras.", image: "https://loremflickr.com/600/400/brigadeiro,chocolate?lock=2" },
   { id: "3", name: "Pastel de Chaves", type: "salgado", price: 150, description: "Massa folhada autêntica com recheio de carne bem temperada.", image: "https://loremflickr.com/600/400/pastry,meat?lock=3" },
   { id: "4", name: "Rissole de Camarão", type: "salgado", price: 180, description: "Salgado frito com recheio cremoso de camarão selecionado.", image: "https://loremflickr.com/600/400/rissole,fried?lock=4" },
@@ -21,7 +21,7 @@ const produtos = [
   { id: "17", name: "Rocambole de Brigadeiro", type: "doce", price: 230, description: "Rocambole fofo recheado com brigadeiro gourmet.", image: "https://loremflickr.com/600/400/swiss,roll,chocolate?lock=17" },
   { id: "18", name: "Torta Holandesa", type: "doce", price: 250, description: "Torta gelada com base de biscoito, creme branco e cobertura de chocolate.", image: "https://loremflickr.com/600/400/pie,chocolate,dessert?lock=18" },
 ];
-
+ 
 async function main() {
   console.log('Limpando produtos antigos...');
   await prisma.produto.deleteMany();

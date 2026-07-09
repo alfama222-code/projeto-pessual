@@ -81,123 +81,205 @@ export default function CadastroPage() {
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-b from-amber-50/50 to-white antialiased selection:bg-amber-600 selection:text-white px-4 sm:px-6 py-12">
-      
-      {/* CARD DO FORMULÁRIO CENTRALIZADO */}
-      <div className="w-full max-w-[360px] space-y-8">
+    <div className="min-h-screen w-full flex antialiased selection:bg-amber-600 selection:text-white">
+
+      {/* ===== PAINEL ESQUERDO — Informações da Delicias da Isabel ===== */}
+      <div className="hidden lg:flex lg:w-1/2 xl:w-[55%] relative flex-col justify-between p-12 overflow-hidden bg-gradient-to-br from-amber-500 via-amber-600 to-orange-700">
         
-        {/* Cabeçalho */}
-        <div className="space-y-2">
-          <h1 className="text-2xl font-medium tracking-tight text-gray-950">Solicitar Registo</h1>
-          <p className="text-sm text-gray-400">Insira os seus dados para criar o seu perfil de Chef na plataforma.</p>
+        {/* Padrão decorativo de fundo */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-[-80px] left-[-80px] w-[400px] h-[400px] rounded-full bg-white" />
+          <div className="absolute bottom-[-120px] right-[-60px] w-[500px] h-[500px] rounded-full bg-white" />
+          <div className="absolute top-1/2 left-1/3 w-[200px] h-[200px] rounded-full bg-white" />
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div className="space-y-3">
-            
-            {/* Input Nome Completo */}
-            <div>
-              <div className={`relative group border rounded-2xl transition-all duration-300 bg-white ${
-                errors.name ? "border-red-400 focus-within:border-red-500 focus-within:shadow-[0_0_0_1px_rgba(239,68,68,1)]" : "border-gray-200/80 focus-within:border-amber-500 focus-within:shadow-[0_0_0_1px_rgba(245,158,11,1)]"
-              }`}>
-                <input
-                  type="text"
-                  {...register("name")}
-                  placeholder=" "
-                  disabled={isLoading}
-                  className="block w-full px-4 pt-6 pb-2 text-sm text-gray-950 bg-transparent outline-none rounded-2xl peer disabled:opacity-50"
-                />
-                <label className="absolute text-xs text-gray-400 duration-200 transform -translate-y-3.5 scale-90 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-90 peer-focus:-translate-y-3.5 peer-focus:text-amber-700 pointer-events-none font-medium">
-                  Nome Completo
-                </label>
-              </div>
-              {errors.name && <p className="text-[11px] text-red-500 font-medium mt-1 ml-2">{errors.name.message}</p>}
-            </div>
+        {/* Conteúdo principal do painel */}
+        <div className="relative z-10 flex flex-col h-full justify-between">
 
-            {/* Input E-mail */}
-            <div>
-              <div className={`relative group border rounded-2xl transition-all duration-300 bg-white ${
-                errors.email ? "border-red-400 focus-within:border-red-500 focus-within:shadow-[0_0_0_1px_rgba(239,68,68,1)]" : "border-gray-200/80 focus-within:border-amber-500 focus-within:shadow-[0_0_0_1px_rgba(245,158,11,1)]"
-              }`}>
-                <input
-                  type="text"
-                  {...register("email")}
-                  placeholder=" "
-                  disabled={isLoading}
-                  className="block w-full px-4 pt-6 pb-2 text-sm text-gray-950 bg-transparent outline-none rounded-2xl peer disabled:opacity-50"
-                />
-                <label className="absolute text-xs text-gray-400 duration-200 transform -translate-y-3.5 scale-90 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-90 peer-focus:-translate-y-3.5 peer-focus:text-amber-700 pointer-events-none font-medium">
-                  Endereço de e-mail
-                </label>
+          {/* Logo / Marca */}
+          <div>
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-11 h-11 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-2xl shadow-lg">
+                🍰
               </div>
-              {errors.email && <p className="text-[11px] text-red-500 font-medium mt-1 ml-2">{errors.email.message}</p>}
-            </div>
-
-            {/* Input Senha */}
-            <div>
-              <div className={`relative group border rounded-2xl transition-all duration-300 bg-white ${
-                errors.password ? "border-red-400 focus-within:border-red-500 focus-within:shadow-[0_0_0_1px_rgba(239,68,68,1)]" : "border-gray-200/80 focus-within:border-amber-500 focus-within:shadow-[0_0_0_1px_rgba(245,158,11,1)]"
-              }`}>
-                <input
-                  type="password"
-                  {...register("password")}
-                  placeholder=" "
-                  disabled={isLoading}
-                  className="block w-full px-4 pt-6 pb-2 text-sm text-gray-950 bg-transparent outline-none rounded-2xl peer disabled:opacity-50"
-                />
-                <label className="absolute text-xs text-gray-400 duration-200 transform -translate-y-3.5 scale-90 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-90 peer-focus:-translate-y-3.5 peer-focus:text-amber-700 pointer-events-none font-medium">
-                  Senha
-                </label>
+              <div>
+                <p className="text-white/70 text-xs font-medium tracking-widest uppercase">Bem-vindo a</p>
+                <h2 className="text-white text-xl font-bold tracking-tight leading-none">Delicias da Isabel</h2>
               </div>
-              {errors.password && <p className="text-[11px] text-red-500 font-medium mt-1 ml-2">{errors.password.message}</p>}
             </div>
-
-            {/* Input Confirmar Senha */}
-            <div>
-              <div className={`relative group border rounded-2xl transition-all duration-300 bg-white ${
-                errors.confirmPassword ? "border-red-400 focus-within:border-red-500 focus-within:shadow-[0_0_0_1px_rgba(239,68,68,1)]" : "border-gray-200/80 focus-within:border-amber-500 focus-within:shadow-[0_0_0_1px_rgba(245,158,11,1)]"
-              }`}>
-                <input
-                  type="password"
-                  {...register("confirmPassword")}
-                  placeholder=" "
-                  disabled={isLoading}
-                  className="block w-full px-4 pt-6 pb-2 text-sm text-gray-950 bg-transparent outline-none rounded-2xl peer disabled:opacity-50"
-                />
-                <label className="absolute text-xs text-gray-400 duration-200 transform -translate-y-3.5 scale-90 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-90 peer-focus:-translate-y-3.5 peer-focus:text-amber-700 pointer-events-none font-medium">
-                  Confirmar Senha
-                </label>
-              </div>
-              {errors.confirmPassword && <p className="text-[11px] text-red-500 font-medium mt-1 ml-2">{errors.confirmPassword.message}</p>}
-            </div>
-
           </div>
 
-          {/* Exibição de Erro do Servidor (ex: Email já registado) */}
-          {serverError && (
-            <div className="p-3 bg-red-50 border border-red-200 text-red-600 text-xs font-medium rounded-xl text-center">
-              {serverError}
+          {/* Texto central de destaque */}
+          <div className="space-y-6 my-auto py-12">
+            <h1 className="text-white text-4xl xl:text-5xl font-extrabold leading-tight tracking-tight drop-shadow-sm">
+              Sabores que <br />
+              <span className="text-amber-100">contam histórias.</span>
+            </h1>
+            <p className="text-amber-100/90 text-base leading-relaxed max-w-sm">
+              Há mais de 10 anos, a Isabel transforma ingredientes simples em momentos inesquecíveis. 
+              Uma cozinha feita com amor, dedicação e o segredo que só o tempo ensina.
+            </p>
+
+            {/* Cards de destaques */}
+            <div className="space-y-3 pt-2">
+              {[
+                { icon: "🎂", title: "Bolos Artesanais", desc: "Feitos à mão, com receitas exclusivas da família" },
+                { icon: "🥐", title: "Doces Regionais", desc: "Tradição portuguesa em cada mordida" },
+                { icon: "🚚", title: "Entrega ao Domicílio", desc: "Frescura garantida até à sua porta" },
+              ].map((item) => (
+                <div
+                  key={item.title}
+                  className="flex items-center gap-4 bg-white/10 backdrop-blur-sm rounded-2xl px-4 py-3 border border-white/20 hover:bg-white/15 transition-colors duration-200"
+                >
+                  <span className="text-2xl">{item.icon}</span>
+                  <div>
+                    <p className="text-white font-semibold text-sm">{item.title}</p>
+                    <p className="text-amber-100/80 text-xs">{item.desc}</p>
+                  </div>
+                </div>
+              ))}
             </div>
-          )}
+          </div>
 
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="w-full bg-amber-500 hover:bg-amber-600 text-white py-3 rounded-2xl text-sm font-bold transition-all duration-200 active:scale-[0.98] shadow-md shadow-amber-500/20 mt-4 flex items-center justify-center min-h-[46px]"
-          >
-            {isLoading ? "A processar..." : "Finalizar Registo de Chef"}
-          </button>
-        </form>
+          {/* Testemunho / rodapé */}
+          <div className="relative z-10">
+            <blockquote className="border-l-2 border-white/40 pl-4">
+              <p className="text-amber-100/90 text-sm italic leading-relaxed">
+                "Cada encomenda é tratada como se fosse para a minha própria família."
+              </p>
+              <footer className="mt-2 flex items-center gap-2">
+                <div className="w-7 h-7 rounded-full bg-white/30 flex items-center justify-center text-sm">👩‍🍳</div>
+                <span className="text-white/80 text-xs font-semibold">Isabel · Fundadora</span>
+              </footer>
+            </blockquote>
+          </div>
 
-        {/* Link para retornar ao login */}
-        <p className="text-center text-xs text-gray-400 pt-4">
-          Já possui uma conta?{" "}
-          <Link href="/login" className="font-semibold text-amber-600 hover:text-amber-700 hover:underline underline-offset-4 transition-colors">
-            Voltar para o Login
-          </Link>
-        </p>
-
+        </div>
       </div>
+
+      {/* ===== PAINEL DIREITO — Formulário de Cadastro ===== */}
+      <div className="w-full lg:w-1/2 xl:w-[45%] flex items-center justify-center bg-gradient-to-b from-amber-50/40 to-white px-6 py-12 sm:px-10">
+        <div className="w-full max-w-[360px] space-y-8">
+
+          {/* Cabeçalho do formulário */}
+          <div className="space-y-2">
+            {/* Logo visível apenas em mobile */}
+            <div className="flex items-center gap-2 mb-4 lg:hidden">
+              <span className="text-2xl">🍰</span>
+              <span className="text-amber-600 font-bold text-lg">Delicias da Isabel</span>
+            </div>
+            <h1 className="text-2xl font-bold tracking-tight text-gray-950">Solicitar Registo</h1>
+            <p className="text-sm text-gray-400">Insira os seus dados para criar o seu perfil de Chef na plataforma.</p>
+          </div>
+
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            <div className="space-y-3">
+
+              {/* Input Nome Completo */}
+              <div>
+                <div className={`relative group border rounded-2xl transition-all duration-300 bg-white ${
+                  errors.name ? "border-red-400 focus-within:border-red-500 focus-within:shadow-[0_0_0_1px_rgba(239,68,68,1)]" : "border-gray-200/80 focus-within:border-amber-500 focus-within:shadow-[0_0_0_1px_rgba(245,158,11,1)]"
+                }`}>
+                  <input
+                    type="text"
+                    {...register("name")}
+                    placeholder=" "
+                    disabled={isLoading}
+                    className="block w-full px-4 pt-6 pb-2 text-sm text-gray-950 bg-transparent outline-none rounded-2xl peer disabled:opacity-50"
+                  />
+                  <label className="absolute text-xs text-gray-400 duration-200 transform -translate-y-3.5 scale-90 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-90 peer-focus:-translate-y-3.5 peer-focus:text-amber-700 pointer-events-none font-medium">
+                    Nome Completo
+                  </label>
+                </div>
+                {errors.name && <p className="text-[11px] text-red-500 font-medium mt-1 ml-2">{errors.name.message}</p>}
+              </div>
+
+              {/* Input E-mail */}
+              <div>
+                <div className={`relative group border rounded-2xl transition-all duration-300 bg-white ${
+                  errors.email ? "border-red-400 focus-within:border-red-500 focus-within:shadow-[0_0_0_1px_rgba(239,68,68,1)]" : "border-gray-200/80 focus-within:border-amber-500 focus-within:shadow-[0_0_0_1px_rgba(245,158,11,1)]"
+                }`}>
+                  <input
+                    type="text"
+                    {...register("email")}
+                    placeholder=" "
+                    disabled={isLoading}
+                    className="block w-full px-4 pt-6 pb-2 text-sm text-gray-950 bg-transparent outline-none rounded-2xl peer disabled:opacity-50"
+                  />
+                  <label className="absolute text-xs text-gray-400 duration-200 transform -translate-y-3.5 scale-90 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-90 peer-focus:-translate-y-3.5 peer-focus:text-amber-700 pointer-events-none font-medium">
+                    Endereço de e-mail
+                  </label>
+                </div>
+                {errors.email && <p className="text-[11px] text-red-500 font-medium mt-1 ml-2">{errors.email.message}</p>}
+              </div>
+
+              {/* Input Senha */}
+              <div>
+                <div className={`relative group border rounded-2xl transition-all duration-300 bg-white ${
+                  errors.password ? "border-red-400 focus-within:border-red-500 focus-within:shadow-[0_0_0_1px_rgba(239,68,68,1)]" : "border-gray-200/80 focus-within:border-amber-500 focus-within:shadow-[0_0_0_1px_rgba(245,158,11,1)]"
+                }`}>
+                  <input
+                    type="password"
+                    {...register("password")}
+                    placeholder=" "
+                    disabled={isLoading}
+                    className="block w-full px-4 pt-6 pb-2 text-sm text-gray-950 bg-transparent outline-none rounded-2xl peer disabled:opacity-50"
+                  />
+                  <label className="absolute text-xs text-gray-400 duration-200 transform -translate-y-3.5 scale-90 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-90 peer-focus:-translate-y-3.5 peer-focus:text-amber-700 pointer-events-none font-medium">
+                    Senha
+                  </label>
+                </div>
+                {errors.password && <p className="text-[11px] text-red-500 font-medium mt-1 ml-2">{errors.password.message}</p>}
+              </div>
+
+              {/* Input Confirmar Senha */}
+              <div>
+                <div className={`relative group border rounded-2xl transition-all duration-300 bg-white ${
+                  errors.confirmPassword ? "border-red-400 focus-within:border-red-500 focus-within:shadow-[0_0_0_1px_rgba(239,68,68,1)]" : "border-gray-200/80 focus-within:border-amber-500 focus-within:shadow-[0_0_0_1px_rgba(245,158,11,1)]"
+                }`}>
+                  <input
+                    type="password"
+                    {...register("confirmPassword")}
+                    placeholder=" "
+                    disabled={isLoading}
+                    className="block w-full px-4 pt-6 pb-2 text-sm text-gray-950 bg-transparent outline-none rounded-2xl peer disabled:opacity-50"
+                  />
+                  <label className="absolute text-xs text-gray-400 duration-200 transform -translate-y-3.5 scale-90 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-90 peer-focus:-translate-y-3.5 peer-focus:text-amber-700 pointer-events-none font-medium">
+                    Confirmar Senha
+                  </label>
+                </div>
+                {errors.confirmPassword && <p className="text-[11px] text-red-500 font-medium mt-1 ml-2">{errors.confirmPassword.message}</p>}
+              </div>
+
+            </div>
+
+            {/* Exibição de Erro do Servidor */}
+            {serverError && (
+              <div className="p-3 bg-red-50 border border-red-200 text-red-600 text-xs font-medium rounded-xl text-center">
+                {serverError}
+              </div>
+            )}
+
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="w-full bg-amber-500 hover:bg-amber-600 text-white py-3 rounded-2xl text-sm font-bold transition-all duration-200 active:scale-[0.98] shadow-md shadow-amber-500/20 mt-4 flex items-center justify-center min-h-[46px]"
+            >
+              {isLoading ? "A processar..." : "Finalizar Registo de Chef"}
+            </button>
+          </form>
+
+          {/* Link para retornar ao login */}
+          <p className="text-center text-xs text-gray-400 pt-4">
+            Já possui uma conta?{" "}
+            <Link href="/login" className="font-semibold text-amber-600 hover:text-amber-700 hover:underline underline-offset-4 transition-colors">
+              Voltar para o Login
+            </Link>
+          </p>
+
+        </div>
+      </div>
+
     </div>
   );
 }
