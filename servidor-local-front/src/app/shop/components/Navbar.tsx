@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { User, LogOut, Trash2, UtensilsCrossed } from "lucide-react";
 
@@ -53,24 +53,45 @@ export default function Navbar() {
     }
   };
 
+  // Ref para detetar cliques fora do dropdown
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickFora = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setMenuPerfilAberto(false);
+      }
+    };
+    if (menuPerfilAberto) {
+      document.addEventListener("mousedown", handleClickFora);
+    }
+    return () => document.removeEventListener("mousedown", handleClickFora);
+  }, [menuPerfilAberto]);
+
   return (
     <nav className="w-full bg-white border-b border-amber-100 sticky top-0 z-40 shadow-sm">
-       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2 cursor-pointer group" onClick={() => router.push("/shop")}>
-            <div className="bg-amber-500 text-white p-2 rounded-xl shadow-md shadow-amber-500/20 group-hover:scale-105 transition-transform">
-              <UtensilsCrossed size={20} />
-            </div>
-            <span className="text-xl font-extrabold tracking-tight bg-gradient-to-r from-amber-600 to-amber-800 bg-clip-text text-transparent">
-              Delícias da Isabel
-            </span>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
+
+        {/* LOGO */}
+        <div
+          className="flex items-center gap-2 cursor-pointer group shrink-0"
+          onClick={() => router.push("/shop")}
+        >
+          <div className="bg-amber-500 text-white p-2 rounded-xl shadow-md shadow-amber-500/20 group-hover:scale-105 transition-transform">
+            <UtensilsCrossed size={18} />
           </div>
-          
+          <span className="text-base sm:text-xl font-extrabold tracking-tight bg-gradient-to-r from-amber-600 to-amber-800 bg-clip-text text-transparent leading-tight">
+            Delícias da Isabel
+          </span>
+        </div>
 
         {/* MENUS DIREITA */}
-        <div className="flex items-center gap-4 relative">
-          <button 
+        <div className="flex items-center gap-2 sm:gap-4 relative" ref={dropdownRef}>
+
+          {/* Botão Sobre Nós — oculto em mobile muito pequeno */}
+          <button
             onClick={() => router.push("/sobre")}
-            className="text-xs font-black tracking-widest uppercase text-gray-600 hover:text-amber-600 transition-colors mr-2"
+            className="hidden xs:block sm:block text-[11px] font-black tracking-widest uppercase text-gray-600 hover:text-amber-600 transition-colors whitespace-nowrap"
           >
             Sobre Nós
           </button>
@@ -78,16 +99,17 @@ export default function Navbar() {
           {/* BOTÃO DO PERFIL */}
           <button
             onClick={() => setMenuPerfilAberto(!menuPerfilAberto)}
-            className="flex items-center gap-2 bg-amber-50 border border-amber-200 text-amber-900 px-3 py-2 rounded-xl text-xs font-bold hover:bg-amber-100 transition-all active:scale-95"
+            className="flex items-center gap-1.5 bg-amber-50 border border-amber-200 text-amber-900 px-2.5 sm:px-3 py-2 rounded-xl text-xs font-bold hover:bg-amber-100 transition-all active:scale-95 max-w-[140px] sm:max-w-none"
           >
-            <User size={16} />
-            <span>Olá, {dadosUsuario.nome.split(" ")[0]}</span>
+            <User size={15} className="shrink-0" />
+            <span className="truncate hidden sm:block">Olá, {dadosUsuario.nome.split(" ")[0]}</span>
+            <span className="truncate sm:hidden">Perfil</span>
           </button>
 
           {/* DROPDOWN DO PERFIL */}
           {menuPerfilAberto && (
             <div className="absolute right-0 top-12 w-64 bg-white border border-amber-100 rounded-2xl p-4 shadow-xl animate-fade-in z-50">
-              
+
               {/* INFO DO USUÁRIO */}
               <div className="border-b border-gray-100 pb-3 mb-3">
                 <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold">Utilizador</p>
@@ -99,9 +121,19 @@ export default function Navbar() {
                 </p>
               </div>
 
+              {/* Link Sobre Nós visível apenas em mobile pequeno */}
+              <div className="sm:hidden mb-2 pb-2 border-b border-gray-100">
+                <button
+                  onClick={() => { router.push("/sobre"); setMenuPerfilAberto(false); }}
+                  className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-left text-xs font-bold text-amber-700 hover:bg-amber-50 transition-colors"
+                >
+                  Sobre Nós
+                </button>
+              </div>
+
               {/* BOTÕES DE ACÇÃO */}
               <div className="flex flex-col gap-1">
-                
+
                 {/* LOGOUT */}
                 <button
                   onClick={handleLogout}

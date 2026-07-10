@@ -11,34 +11,34 @@ export default function SobrePage() {
       
       {/* HEADER / BARRA DE NAVEGAÇÃO SUPERIOR */}
       <header className="sticky top-0 z-50 w-full border-b border-amber-100 bg-white/80 backdrop-blur-md transition-all">
-        <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2 cursor-pointer group" onClick={() => router.push("/shop")}>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2 cursor-pointer group shrink-0" onClick={() => router.push("/shop")}>
             <div className="bg-amber-500 text-white p-2 rounded-xl shadow-md shadow-amber-500/20 group-hover:scale-105 transition-transform">
-              <UtensilsCrossed size={20} />
+              <UtensilsCrossed size={18} />
             </div>
-            <span className="text-xl font-extrabold tracking-tight bg-gradient-to-r from-amber-600 to-amber-800 bg-clip-text text-transparent">
+            <span className="text-base sm:text-xl font-extrabold tracking-tight bg-gradient-to-r from-amber-600 to-amber-800 bg-clip-text text-transparent">
               Delícias da Isabel
             </span>
           </div>
-          
-          <button 
+
+          <button
             onClick={() => router.push("/shop")}
-            className="text-xs font-black tracking-widest uppercase text-gray-600 hover:text-amber-600 transition-colors"
+            className="text-[11px] sm:text-xs font-black tracking-widest uppercase text-gray-600 hover:text-amber-600 transition-colors whitespace-nowrap"
           >
-            ← Voltar à Loja
+            ← <span className="hidden sm:inline">Voltar à Loja</span><span className="sm:hidden">Loja</span>
           </button>
         </div>
       </header>
 
       {/* CONTEÚDO PRINCIPAL */}
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
+
         {/* Título de Impacto */}
-        <div className="space-y-4 mb-16 text-center sm:text-left">
+        <div className="space-y-4 mb-12 sm:mb-16 text-center sm:text-left">
           <span className="text-[11px] font-bold tracking-widest uppercase bg-amber-500 text-white px-3 py-1.5 rounded-lg shadow-sm shadow-amber-500/20">
             A Nossa História
           </span>
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl mt-4 bg-gradient-to-r from-amber-600 to-amber-800 bg-clip-text text-transparent">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mt-4 bg-gradient-to-r from-amber-600 to-amber-800 bg-clip-text text-transparent">
             A Arte da Confeitaria Artesanal.
           </h1>
         </div>

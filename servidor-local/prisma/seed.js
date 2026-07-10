@@ -21,7 +21,7 @@ const produtos = [
   { id: "17", name: "Rocambole de Brigadeiro", type: "doce", price: 230, description: "Rocambole fofo recheado com brigadeiro gourmet.", image: "https://loremflickr.com/600/400/swiss,roll,chocolate?lock=17" },
   { id: "18", name: "Torta Holandesa", type: "doce", price: 250, description: "Torta gelada com base de biscoito, creme branco e cobertura de chocolate.", image: "https://loremflickr.com/600/400/pie,chocolate,dessert?lock=18" },
 ];
- 
+
 async function main() {
   console.log('Limpando produtos antigos...');
   await prisma.produto.deleteMany();

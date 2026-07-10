@@ -10,9 +10,13 @@ const config: Config = {
   "./src/app/**/*.{js,ts,jsx,tsx,mdx}", // <-- Garante que esta linha tem o "src/app"
 ],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        'xs': '480px',  // Breakpoint extra para telas entre mobile e sm
+      },
+    },
   },
   plugins: [],
 };
 
-export default config;
+export default config;

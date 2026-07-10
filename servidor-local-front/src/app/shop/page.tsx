@@ -49,6 +49,7 @@ export default function ShopPage() {
   };
 
   const [modalAberto, setModalAberto] = useState(false);
+  const [carrinhoAberto, setCarrinhoAberto] = useState(false);
   const [dadosCheckout, setDadosCheckout] = useState({
     nome: "",
     telefone: "",
@@ -87,27 +88,27 @@ export default function ShopPage() {
 
   return (
     <div className="min-h-screen bg-amber-50/40 text-gray-900 flex flex-col justify-between relative overflow-x-hidden">
-      
+
       <div className="flex w-full">
         <div className={`w-full transition-all duration-300 ${cart.length > 0 ? "lg:mr-80 xl:mr-96" : ""}`}>
           <Navbar />
           
-          <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            
+          <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+
             {/* Cabeçalho da Seção e Botões de Filtro */}
-            <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-10 gap-6">
+            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between mb-8 gap-4">
               <div className="text-center sm:text-left">
                 <h2 className="text-xs font-black tracking-widest uppercase text-amber-600">Cardápio Exclusivo</h2>
-                <h1 className="text-3xl font-black tracking-tight uppercase mt-2 bg-gradient-to-r from-amber-700 to-amber-900 bg-clip-text text-transparent">
+                <h1 className="text-2xl sm:text-3xl font-black tracking-tight uppercase mt-2 bg-gradient-to-r from-amber-700 to-amber-900 bg-clip-text text-transparent">
                   Nossas Delícias
                 </h1>
               </div>
 
               {/* BARRA DE FILTROS */}
-              <div className="flex justify-center sm:justify-start gap-2 bg-amber-100/40 p-1.5 rounded-2xl border border-amber-100/80 self-center md:self-auto">
+              <div className="flex justify-center sm:justify-start gap-1.5 bg-amber-100/40 p-1.5 rounded-2xl border border-amber-100/80 self-center sm:self-auto">
                 <button
                   onClick={() => setFiltro("todos")}
-                  className={`text-[11px] font-black tracking-widest uppercase px-5 py-2.5 rounded-xl transition-all duration-200 ${
+                  className={`text-[10px] sm:text-[11px] font-black tracking-widest uppercase px-3 sm:px-5 py-2 sm:py-2.5 rounded-xl transition-all duration-200 ${
                     filtro === "todos"
                       ? "bg-amber-600 text-white shadow-sm shadow-amber-600/10"
                       : "text-amber-800 hover:bg-amber-100/50"
@@ -117,7 +118,7 @@ export default function ShopPage() {
                 </button>
                 <button
                   onClick={() => setFiltro("doce")}
-                  className={`text-[11px] font-black tracking-widest uppercase px-5 py-2.5 rounded-xl transition-all duration-200 ${
+                  className={`text-[10px] sm:text-[11px] font-black tracking-widest uppercase px-3 sm:px-5 py-2 sm:py-2.5 rounded-xl transition-all duration-200 ${
                     filtro === "doce"
                       ? "bg-amber-600 text-white shadow-sm shadow-amber-600/10"
                       : "text-amber-800 hover:bg-amber-100/50"
@@ -127,7 +128,7 @@ export default function ShopPage() {
                 </button>
                 <button
                   onClick={() => setFiltro("salgado")}
-                  className={`text-[11px] font-black tracking-widest uppercase px-5 py-2.5 rounded-xl transition-all duration-200 ${
+                  className={`text-[10px] sm:text-[11px] font-black tracking-widest uppercase px-3 sm:px-5 py-2 sm:py-2.5 rounded-xl transition-all duration-200 ${
                     filtro === "salgado"
                       ? "bg-amber-600 text-white shadow-sm shadow-amber-600/10"
                       : "text-amber-800 hover:bg-amber-100/50"
@@ -244,15 +245,47 @@ export default function ShopPage() {
           </main>
         </div>
 
+        {/* OVERLAY PARA FECHAR CARRINHO EM MOBILE */}
+        {cart.length > 0 && carrinhoAberto && (
+          <div
+            className="fixed inset-0 bg-black/40 z-40 lg:hidden"
+            onClick={() => setCarrinhoAberto(false)}
+          />
+        )}
+
+        {/* BOTÃO FLUTUANTE DE CARRINHO EM MOBILE */}
+        {cart.length > 0 && !carrinhoAberto && (
+          <button
+            onClick={() => setCarrinhoAberto(true)}
+            className="fixed bottom-6 right-6 z-50 lg:hidden bg-amber-600 text-white px-5 py-3.5 rounded-2xl shadow-lg shadow-amber-600/30 flex items-center gap-2.5 font-black text-[11px] uppercase tracking-widest active:scale-95 transition-all hover:bg-amber-700"
+          >
+            🛒
+            <span>{cart.reduce((s, i) => s + i.quantity, 0)} {cart.reduce((s, i) => s + i.quantity, 0) === 1 ? "item" : "itens"}</span>
+            <span className="text-amber-200">· {cartTotal.toFixed(0)} CVE</span>
+          </button>
+        )}
+
         {/* SIDEBAR DO CARRINHO */}
         {cart.length > 0 && (
-          <aside className="fixed top-0 right-0 h-screen w-full sm:w-80 lg:w-80 xl:w-96 bg-white border-l border-amber-100 z-50 shadow-2xl flex flex-col justify-between p-6 animate-slide-in">
+          <aside className={`fixed top-0 right-0 h-screen w-full sm:w-80 lg:w-80 xl:w-96 bg-white border-l border-amber-100 z-50 shadow-2xl flex flex-col justify-between p-6 transition-transform duration-300 lg:translate-x-0 ${
+            carrinhoAberto ? "translate-x-0" : "translate-x-full"
+          }`}>
             <div>
               <div className="flex justify-between items-center pb-4 border-b border-gray-100">
                 <span className="font-black text-xs uppercase tracking-widest text-amber-700">O Teu Pedido</span>
-                <span className="bg-amber-500 text-white text-[10px] font-black px-2.5 py-0.5 rounded-full shadow-sm shadow-amber-500/20">
-                  {cart.reduce((sum, item) => sum + item.quantity, 0)} itens
-                </span>
+                <div className="flex items-center gap-3">
+                  <span className="bg-amber-500 text-white text-[10px] font-black px-2.5 py-0.5 rounded-full shadow-sm shadow-amber-500/20">
+                    {cart.reduce((sum, item) => sum + item.quantity, 0)} itens
+                  </span>
+                  {/* Botão para fechar em mobile */}
+                  <button
+                    onClick={() => setCarrinhoAberto(false)}
+                    className="lg:hidden text-gray-400 hover:text-gray-700 transition-colors p-1"
+                    aria-label="Fechar carrinho"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                  </button>
+                </div>
               </div>
 
               <div className="mt-4 space-y-4 overflow-y-auto max-h-[65vh] pr-1 divide-y divide-gray-50">
@@ -354,10 +387,10 @@ export default function ShopPage() {
 
       {/* MODAL DE CHECKOUT */}
       {modalAberto && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
-          <div className="bg-white rounded-3xl w-full max-w-md overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
+        <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center sm:p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
+          <div className="bg-white rounded-t-3xl sm:rounded-3xl w-full sm:max-w-md overflow-hidden shadow-2xl flex flex-col max-h-[95vh] sm:max-h-[90vh]">
             {/* Header */}
-            <div className="flex justify-between items-center p-6 border-b border-gray-100">
+            <div className="flex justify-between items-center p-4 sm:p-6 border-b border-gray-100">
               <h2 className="text-sm font-black tracking-widest uppercase text-amber-900">Detalhes do Pedido</h2>
               <button onClick={() => setModalAberto(false)} className="text-gray-400 hover:text-red-500 transition-colors">
                 <X size={20} />
@@ -365,10 +398,10 @@ export default function ShopPage() {
             </div>
 
             {/* Scrollable Content */}
-            <div className="overflow-y-auto p-6 space-y-6">
-              
+            <div className="overflow-y-auto p-4 sm:p-6 space-y-5 sm:space-y-6">
+
               {/* Formulário */}
-              <form id="checkout-form" onSubmit={enviarPedidoWhatsApp} className="space-y-4">
+              <form id="checkout-form" onSubmit={enviarPedidoWhatsApp} className="space-y-3 sm:space-y-4">
                 <div>
                   <label className="text-[10px] font-black uppercase tracking-widest text-gray-500 block mb-1">Nome Completo</label>
                   <input required type="text" value={dadosCheckout.nome} onChange={(e) => setDadosCheckout({...dadosCheckout, nome: e.target.value})} className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:border-amber-500 outline-none" />
@@ -401,7 +434,7 @@ export default function ShopPage() {
               </div>
 
               {/* Banco */}
-              <div className="bg-neutral-900 text-white p-5 rounded-2xl space-y-3 font-mono shadow-inner relative overflow-hidden">
+              <div className="bg-neutral-900 text-white p-4 sm:p-5 rounded-2xl space-y-3 font-mono shadow-inner relative overflow-hidden">
                 <div className="absolute -right-4 -bottom-4 w-24 h-24 bg-amber-500/10 rounded-full blur-xl" />
                 <div className="flex items-center gap-2 text-amber-500 mb-2">
                   <CreditCard size={14} /> <span className="text-[10px] uppercase font-sans tracking-widest font-bold">Transferência BCA</span>
@@ -417,12 +450,12 @@ export default function ShopPage() {
                   </span>
                 </div>
               </div>
-              
+
             </div>
 
             {/* Footer */}
-            <div className="p-6 border-t border-gray-100 bg-gray-50 mt-auto">
-              <button 
+            <div className="p-4 sm:p-6 border-t border-gray-100 bg-gray-50 mt-auto">
+              <button
                 type="submit"
                 form="checkout-form"
                 className="w-full bg-amber-500 hover:bg-amber-600 text-white font-black tracking-widest uppercase py-4 rounded-xl transition-all shadow-md shadow-amber-500/20 text-xs"
