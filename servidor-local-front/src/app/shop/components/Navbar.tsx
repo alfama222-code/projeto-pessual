@@ -12,16 +12,23 @@ export default function Navbar() {
     criadoEm: "01/03/2026", // Data mockada padrão caso não exista no localStorage
   });
 
+  const [isAdmin, setIsAdmin] = useState(false);
+
   // Carrega as informações do usuário vindas do localStorage ao montar o componente
   useEffect(() => {
     const nomeSalvo = localStorage.getItem("delicias_isabel_user_name");
     const dataCriacaoSalva = localStorage.getItem("delicias_isabel_user_created");
+    const tokenAdmin = localStorage.getItem("auth_token");
     
     if (nomeSalvo || dataCriacaoSalva) {
       setDadosUsuario({
         nome: nomeSalvo || "Cliente Delícias",
         criadoEm: dataCriacaoSalva || "Recente",
       });
+    }
+
+    if (tokenAdmin) {
+      setIsAdmin(true);
     }
   }, []);
 
@@ -96,6 +103,16 @@ export default function Navbar() {
             Sobre Nós
           </button>
 
+          {/* Botão Admin — visível apenas se for admin */}
+          {isAdmin && (
+            <button
+              onClick={() => router.push("/admin")}
+              className="hidden xs:block sm:block text-[11px] font-black tracking-widest uppercase text-amber-600 hover:text-amber-800 transition-colors whitespace-nowrap bg-amber-100 px-3 py-1.5 rounded-lg"
+            >
+              Painel Admin
+            </button>
+          )}
+
           {/* BOTÃO DO PERFIL */}
           <button
             onClick={() => setMenuPerfilAberto(!menuPerfilAberto)}
@@ -130,6 +147,18 @@ export default function Navbar() {
                   Sobre Nós
                 </button>
               </div>
+
+              {/* Link Admin visível no dropdown */}
+              {isAdmin && (
+                <div className="mb-2 pb-2 border-b border-gray-100">
+                  <button
+                    onClick={() => { router.push("/admin"); setMenuPerfilAberto(false); }}
+                    className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-left text-xs font-bold text-amber-700 hover:bg-amber-50 transition-colors bg-amber-50/50"
+                  >
+                    Painel Administrador
+                  </button>
+                </div>
+              )}
 
               {/* BOTÕES DE ACÇÃO */}
               <div className="flex flex-col gap-1">

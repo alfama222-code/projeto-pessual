@@ -26,3 +26,25 @@ model Produto {
   description String
   image       String
 }
+
+model Pedido {
+  id              String       @id @default(uuid())
+  clienteNome     String
+  clienteEndereco String
+  formaPagamento  String
+  total           Float
+  status          String       @default("Pendente")
+  criadoEm        DateTime     @default(now())
+  itens           ItemPedido[]
+}
+
+model ItemPedido {
+  id         String  @id @default(uuid())
+  pedidoId   String
+  produtoId  String
+  nome       String
+  preco      Float
+  quantidade Int
+
+  pedido Pedido @relation(fields: [pedidoId], references: [id], onDelete: Cascade)
+}

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useCart } from "../../context/CartContext";
 import Navbar from "./components/Navbar";
-import { Info, CreditCard, X } from "lucide-react";
+import { Info, CreditCard, X, Link } from "lucide-react";
 
 export default function ShopPage() {
   const { cart, addToCart, decreaseQuantity, removeFromCart, cartTotal, clearCart } = useCart();
@@ -62,8 +62,31 @@ export default function ShopPage() {
     setModalAberto(true);
   };
 
-  const enviarPedidoWhatsApp = (e: React.FormEvent) => {
+  const enviarPedidoWhatsApp = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const pedidoData = {
+      clienteNome: dadosCheckout.nome,
+      clienteEndereco: `${dadosCheckout.local_de_entrega} (Tel: ${dadosCheckout.telefone}, Entrega: ${dadosCheckout.dia_da_entrega})`,
+      formaPagamento: "Transferência",
+      total: cartTotal,
+      itens: cart.map(item => ({
+        produtoId: item.id,
+        nome: item.name,
+        preco: item.price,
+        quantidade: item.quantity
+      }))
+    };
+
+    try {
+      await fetch("http://localhost:3001/api/pedidos", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(pedidoData)
+      });
+    } catch (error) {
+      console.error("Erro ao salvar pedido no banco", error);
+    }
 
     let mensagem = `*Novo Pedido - Delícias da Isabel*\n\n`;
     mensagem += `*DADOS DO CLIENTE*\n`;
@@ -377,6 +400,7 @@ export default function ShopPage() {
 
           <div className="flex flex-col sm:flex-row justify-between items-center pt-8 text-[10px] tracking-widest uppercase text-amber-700 space-y-4 sm:space-y-0">
             <p>© {new Date().getFullYear()} Delícias da Isabel. Todos os direitos reservados.</p>
+            <p> <Link href="/login" className="hover:text-amber-400 transition-colors duration-200 cursor-pointer">Área Administrativa</Link></p>
             <div className="flex gap-6">
               <span className="hover:text-amber-400 transition-colors duration-200 cursor-pointer">Termos</span>
               <span className="hover:text-amber-400 transition-colors duration-200 cursor-pointer">Privacidade</span>
