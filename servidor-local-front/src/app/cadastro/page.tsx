@@ -84,10 +84,10 @@ export default function CadastroPage() {
     <div className="min-h-screen w-full flex antialiased selection:bg-amber-600 selection:text-white">
 
       {/* ===== PAINEL ESQUERDO — Informações da Delicias da Isabel ===== */}
-      <div className="hidden lg:flex lg:w-1/2 xl:w-[55%] relative flex-col justify-between p-12 overflow-hidden bg-gradient-to-br from-amber-500 via-amber-600 to-orange-700">
-        
-        {/* Padrão decorativo de fundo */}
-        <div className="absolute inset-0 opacity-10">
+      <div className="hidden lg:flex lg:w-1/2 xl:w-[55%] relative flex-col justify-between p-12 overflow-hidden bg-amber-800">
+
+        {/* Padrão decorativo de fundo — subtil, sem quebrar uniformidade */}
+        <div className="absolute inset-0 opacity-[0.06]">
           <div className="absolute top-[-80px] left-[-80px] w-[400px] h-[400px] rounded-full bg-white" />
           <div className="absolute bottom-[-120px] right-[-60px] w-[500px] h-[500px] rounded-full bg-white" />
           <div className="absolute top-1/2 left-1/3 w-[200px] h-[200px] rounded-full bg-white" />
