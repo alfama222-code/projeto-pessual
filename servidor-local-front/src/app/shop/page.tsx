@@ -400,7 +400,6 @@ export default function ShopPage() {
 
           <div className="flex flex-col sm:flex-row justify-between items-center pt-8 text-[10px] tracking-widest uppercase text-amber-700 space-y-4 sm:space-y-0">
             <p>© {new Date().getFullYear()} Delícias da Isabel. Todos os direitos reservados.</p>
-            <p> <Link href="/login" className="hover:text-amber-400 transition-colors duration-200 cursor-pointer">Área Administrativa</Link></p>
             <div className="flex gap-6">
               <span className="hover:text-amber-400 transition-colors duration-200 cursor-pointer">Termos</span>
               <span className="hover:text-amber-400 transition-colors duration-200 cursor-pointer">Privacidade</span>
