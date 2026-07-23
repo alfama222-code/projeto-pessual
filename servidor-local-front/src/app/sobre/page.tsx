@@ -8,7 +8,7 @@ export default function SobrePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50/50 to-white text-gray-950 antialiased font-sans">
-      
+
       {/* HEADER / BARRA DE NAVEGAÇÃO SUPERIOR */}
       <header className="sticky top-0 z-50 w-full border-b border-amber-100 bg-white/80 backdrop-blur-md transition-all">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
@@ -53,17 +53,19 @@ export default function SobrePage() {
               Acreditamos que a comida não alimenta apenas o corpo, mas celebra momentos. Por isso, a nossa produção é estritamente artesanal, feita sob encomenda para garantir o máximo de frescura, textura e sabor.
             </p>
           </div>
-          
+
           <div className="space-y-6">
             <p>
               Sob a liderança criativa da Chef Isabel, a marca destaca-se pelo equilíbrio perfeito entre receitas tradicionais e uma apresentação moderna de estética minimalista.
             </p>
-            
+
             <blockquote className="border-l-4 border-amber-500 pl-4 italic text-gray-900 font-medium my-4">
               "A nossa missão é elevar a confeitaria e os salgados tradicionais ao nível de arte, servidos com excelência."
             </blockquote>
           </div>
         </div>
+
+       
 
         {/* REGRA DE ENCOMENDA (AVISO DE 50%) */}
         <div className="bg-amber-50 border border-amber-200/70 rounded-2xl p-5 mt-16 flex gap-3 items-start shadow-sm shadow-amber-500/5">
@@ -80,12 +82,12 @@ export default function SobrePage() {
 
         {/* INFORMAÇÕES DE CONTACTO E DADOS BANCÁRIOS */}
         <div className="bg-white border border-amber-100 rounded-2xl p-8 mt-6 space-y-8 shadow-sm">
-          
+
           {/* Canais Sociais e Telefónicos */}
           <div className="space-y-4">
             <h3 className="text-xs font-black tracking-widest uppercase text-amber-600">Canais de Contacto</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-xs uppercase tracking-wider font-bold text-gray-800">
-              
+
               {/* TELEFONE */}
               <div className="flex items-center gap-3 p-3 bg-gray-50/50 border border-gray-100 rounded-xl">
                 <div className="text-amber-600 shrink-0"><Phone size={16} /></div>
@@ -101,9 +103,9 @@ export default function SobrePage() {
               <div className="flex items-center gap-3 p-3 bg-gray-50/50 border border-gray-100 rounded-xl">
                 <div className="text-amber-600 shrink-0">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
-                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
                   </svg>
                 </div>
                 <div>
@@ -118,7 +120,7 @@ export default function SobrePage() {
               <div className="flex items-center gap-3 p-3 bg-gray-50/50 border border-gray-100 rounded-xl">
                 <div className="text-amber-600 shrink-0">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
                   </svg>
                 </div>
                 <div>
@@ -134,9 +136,14 @@ export default function SobrePage() {
                 <div className="text-amber-600 shrink-0" style={{ transform: "rotate(-10deg)" }}>📍</div>
                 <div>
                   <p className="text-[10px] tracking-widest text-gray-400 font-bold block normal-case">Localização</p>
-                  <span className="text-gray-900">Praia, Cabo Verde</span>
+                  <span className="text-gray-900">Cabo Verde
+                    <br></br>
+                    Praia
+                    <br></br>
+                    São Pedro -<strong>Casa Para Todos/1ª Lote</strong>,  </span>
                 </div>
               </div>
+
 
             </div>
           </div>
@@ -146,10 +153,10 @@ export default function SobrePage() {
             <h3 className="text-xs font-black tracking-widest uppercase text-amber-600 flex items-center gap-2">
               <CreditCard size={15} /> Dados de Pagamento (Transferência)
             </h3>
-            
+
             <div className="bg-neutral-900 text-white p-6 rounded-2xl space-y-4 font-mono shadow-inner relative overflow-hidden">
               <div className="absolute -right-6 -bottom-6 w-32 h-32 bg-amber-500/10 rounded-full blur-xl" />
-              
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs tracking-wider uppercase">
                 <div>
                   <span className="text-[10px] text-neutral-400 block font-sans normal-case mb-0.5">Banco</span>
