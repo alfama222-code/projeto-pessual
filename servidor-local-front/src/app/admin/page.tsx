@@ -1,4 +1,4 @@
-"use client";
+"use admin";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
