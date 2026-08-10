@@ -2,6 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { UtensilsCrossed, Phone, CreditCard, Info } from "lucide-react";
+import { motion } from "framer-motion";
+import { LampContainer } from "../../components/ui/lamp";
 
 export default function SobrePage() {
   const router = useRouter();
@@ -30,18 +32,24 @@ export default function SobrePage() {
         </div>
       </header>
 
-      {/* CONTEÚDO PRINCIPAL */}
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
+      {/* TÍTULO COM EFEITO LAMP */}
+      <LampContainer>
+        <motion.h1
+          initial={{ opacity: 0.5, y: 100 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{
+            delay: 0.3,
+            duration: 0.8,
+            ease: "easeInOut",
+          }}
+          className="mt-8 bg-gradient-to-br from-amber-600 to-amber-900 py-4 bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-7xl"
+        >
+          A Nossa <br /> História
+        </motion.h1>
+      </LampContainer>
 
-        {/* Título de Impacto */}
-        <div className="space-y-4 mb-12 sm:mb-16 text-center sm:text-left">
-          <span className="text-[11px] font-bold tracking-widest uppercase bg-amber-500 text-white px-3 py-1.5 rounded-lg shadow-sm shadow-amber-500/20">
-            A Nossa História
-          </span>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mt-4 bg-gradient-to-r from-amber-600 to-amber-800 bg-clip-text text-transparent">
-            A Arte da Confeitaria Artesanal.
-          </h1>
-        </div>
+      {/* CONTEÚDO PRINCIPAL */}
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 -mt-32 relative z-10">
 
         {/* Bloco de Texto Conceitual */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 text-gray-700 leading-relaxed text-sm border-t border-amber-200/60 pt-12">
