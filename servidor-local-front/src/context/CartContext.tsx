@@ -18,7 +18,6 @@ interface CartContextType {
   clearCart: () => void;
   cartTotal: number;
 }
-
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
