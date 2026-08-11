@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { UtensilsCrossed, Phone, CreditCard, Info } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { LampContainer } from "../../components/ui/lamp";
 
 export default function SobrePage() {
@@ -27,7 +27,7 @@ export default function SobrePage() {
             onClick={() => router.push("/shop")}
             className="text-[11px] sm:text-xs font-black tracking-widest uppercase text-gray-600 hover:text-amber-600 transition-colors whitespace-nowrap"
           >
-            ← <span className="hidden sm:inline">Voltar à Loja</span><span className="sm:hidden">Loja</span>
+            ← <span className="hidden sm:inline">Ir à Loja</span> <span className="sm:hidden"></span>
           </button>
         </div>
       </header>
@@ -72,8 +72,24 @@ export default function SobrePage() {
             </blockquote>
           </div>
         </div>
+        {/* LOCALIZAÇÃO */}
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d707.327570278918!2d-23.526897715286996!3d14.94620238240853!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1spt-PT!2scv!4v1786446298190!5m2!1spt-PT!2scv"
+          width="400" height="300"
+          style={{ border: 0 }}
+          allowFullScreen loading="lazy" referrerPolicy="strict-origin-when-cross-origin">
+        </iframe>
+        <div className="flex items-center gap-3 p-3 bg-gray-50/50 border border-gray-100 rounded-xl">
+          <div className="text-amber-600 shrink-0" style={{ transform: "rotate(-10deg)" }}>📍</div>
+          <div>
+            <p className="text-[10px] tracking-widest text-gray-400 font-bold block normal-case">Localização</p>
+            <span className="text-gray-900">Cabo Verde
+              <br></br>
+              Praia
+              <br></br>
+              São Pedro -<strong>Casa Para Todos/1ª Lote</strong>,  </span>
+          </div>
+        </div>
 
-       
 
         {/* REGRA DE ENCOMENDA (AVISO DE 50%) */}
         <div className="bg-amber-50 border border-amber-200/70 rounded-2xl p-5 mt-16 flex gap-3 items-start shadow-sm shadow-amber-500/5">
@@ -138,21 +154,6 @@ export default function SobrePage() {
                   </a>
                 </div>
               </div>
-
-              {/* LOCALIZAÇÃO */}
-              <div className="flex items-center gap-3 p-3 bg-gray-50/50 border border-gray-100 rounded-xl">
-                <div className="text-amber-600 shrink-0" style={{ transform: "rotate(-10deg)" }}>📍</div>
-                <div>
-                  <p className="text-[10px] tracking-widest text-gray-400 font-bold block normal-case">Localização</p>
-                  <span className="text-gray-900">Cabo Verde
-                    <br></br>
-                    Praia
-                    <br></br>
-                    São Pedro -<strong>Casa Para Todos/1ª Lote</strong>,  </span>
-                </div>
-              </div>
-
-
             </div>
           </div>
 

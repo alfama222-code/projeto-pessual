@@ -29,7 +29,7 @@ export default function CadastroPage() {
   useEffect(() => {
     const token = localStorage.getItem("auth_token"); 
     if (token) {
-      router.push("/shop"); 
+      router.push("/sobre"); 
     }
   }, [router]);
 
@@ -70,8 +70,8 @@ export default function CadastroPage() {
         throw new Error(result.erro || result.message || "Ocorreu um erro ao efetuar o registo.");
       }
 
-      // Sucesso! Redireciona para o login
-      router.push("/login");
+      // Sucesso! Redireciona para a página sobre a empresa
+      router.push("/sobre");
     } catch (error: any) {
       console.error("Erro no cadastro:", error.message);
       setServerError(error.message);

@@ -27,7 +27,7 @@ export default function LoginPage() {
 
     if (token) {
       // Se já tiver conta logada, redireciona imediatamente
-      router.push("/shop"); // Altera para a rota correta da tua app (ex: "/dashboard" ou "/")
+      router.push("/shop");
     }
   }, [router]);
 
@@ -88,7 +88,7 @@ export default function LoginPage() {
       if (result.usuario) {
         localStorage.setItem("user_data", JSON.stringify(result.usuario));
       }
-      router.push("/shop");
+      router.push("/sobre");
 
     } catch (error: any) {
       console.error("Erro no login:", error.message);
