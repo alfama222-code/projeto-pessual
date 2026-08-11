@@ -88,7 +88,7 @@ export default function LoginPage() {
       if (result.usuario) {
         localStorage.setItem("user_data", JSON.stringify(result.usuario));
       }
-      router.push("/sobre");
+      router.push("/shop");
 
     } catch (error: any) {
       console.error("Erro no login:", error.message);

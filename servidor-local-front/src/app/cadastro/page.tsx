@@ -29,7 +29,7 @@ export default function CadastroPage() {
   useEffect(() => {
     const token = localStorage.getItem("auth_token"); 
     if (token) {
-      router.push("/sobre"); 
+      router.push("/shop"); 
     }
   }, [router]);
 
