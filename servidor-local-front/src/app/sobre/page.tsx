@@ -4,6 +4,12 @@ import { useRouter } from "next/navigation";
 import { UtensilsCrossed, Phone, CreditCard, Info } from "lucide-react";
 import { motion } from "motion/react";
 import { LampContainer } from "../../components/ui/lamp";
+import NeonBorder from "@/src/components/ui/neon-border";
+import { BackgroundRippleEffect } from "../../components/backgroundripple-effect";
+
+
+
+
 
 export default function SobrePage() {
   const router = useRouter();
@@ -12,25 +18,59 @@ export default function SobrePage() {
     <div className="min-h-screen bg-gradient-to-b from-amber-50/50 to-white text-gray-950 antialiased font-sans">
 
       {/* HEADER / BARRA DE NAVEGAÇÃO SUPERIOR */}
-      <header className="sticky top-0 z-50 w-full border-b border-amber-100 bg-white/80 backdrop-blur-md transition-all">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2 cursor-pointer group shrink-0" onClick={() => router.push("/shop")}>
-            <div className="bg-amber-500 text-white p-2 rounded-xl shadow-md shadow-amber-500/20 group-hover:scale-105 transition-transform">
-              <UtensilsCrossed size={18} />
+      <NeonBorder
+        color="#ff7700ff"
+        rounded={0}
+        thickness={2}
+        borderSize={40}
+        glow={60}
+        speed={10}
+        className="sticky top-0 z-50"
+        style={{ width: "100%", height: "auto" }}
+      >
+        <header className="w-full border-b border-amber-100 bg-white/80 backdrop-blur-md transition-all">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2 cursor-pointer group shrink-0" onClick={() => router.push("/shop")}>
+              <div className="bg-amber-500 text-white p-2 rounded-xl shadow-md shadow-amber-500/20 group-hover:scale-105 transition-transform">
+                <UtensilsCrossed size={18} />
+              </div>
+              <span className="text-base sm:text-xl font-extrabold tracking-tight bg-gradient-to-r from-amber-600 to-amber-800 bg-clip-text text-transparent">
+                Delícias da Isabel
+              </span>
             </div>
-            <span className="text-base sm:text-xl font-extrabold tracking-tight bg-gradient-to-r from-amber-600 to-amber-800 bg-clip-text text-transparent">
-              Delícias da Isabel
-            </span>
-          </div>
 
-          <button
-            onClick={() => router.push("/shop")}
-            className="text-[11px] sm:text-xs font-black tracking-widest uppercase text-gray-600 hover:text-amber-600 transition-colors whitespace-nowrap"
-          >
-            ← <span className="hidden sm:inline">Ir à Loja</span> <span className="sm:hidden"></span>
-          </button>
+            <button
+              onClick={() => router.push("/shop")}
+              className="text-[11px] sm:text-xs font-black tracking-widest uppercase text-gray-600 hover:text-amber-600 transition-colors whitespace-nowrap"
+            >
+              ← <span className="hidden sm:inline">Ir à Loja</span> <span className="sm:hidden"></span>
+            </button>
+          </div>
+        </header>
+      </NeonBorder>
+
+      {/* imgaem de fundo  */}
+      <div className="relative flex min-h-screen w-full flex-col items-start justify-start overflow-hidden">
+        <BackgroundRippleEffect />
+        <div className="mt-60 w-full text-start-900">
+          <h2 className="relative z-10 mx-auto max-w-4xl text-center text-2xl font-bold text-neutral-800 md:text-4xl lg:text-7xl dark:text-neutral-100">
+            Delícias da Isabel
+          </h2>
+          <p className="relative z-10 mx-auto mt-4 max-w-xl text-center text-neutral-800 dark:text-neutral-500">
+            <span className="text-amber-700 font-bold">Onde a tradição encontra a modernidade,</span> cada doce e cada salgado é feito com amor e dedicação.
+            Acreditamos que a comida não alimenta apenas o corpo, mas celebra momentos. Por isso, a nossa produção é estritamente artesanal, feita sob encomenda para garantir o máximo de frescura, textura e sabor.
+            <br></br>
+           <span className="text-amber-700 font-bold">Acreditamos que a comida não alimenta apenas o corpo, mas celebra momentos.</span>
+          </p>
         </div>
-      </header>
+      </div>
+
+
+
+
+
+
+
 
       {/* TÍTULO COM EFEITO LAMP */}
       <LampContainer>
@@ -57,9 +97,6 @@ export default function SobrePage() {
             <p>
               O projeto <strong className="text-amber-700 font-bold">Delícias da Isabel</strong> nasceu da paixão por transformar ingredientes simples em experiências gastronómicas memoráveis. Cada doce e cada salgado que sai da nossa cozinha carrega uma herança de rigor, dedicação e técnica.
             </p>
-            <p>
-              Acreditamos que a comida não alimenta apenas o corpo, mas celebra momentos. Por isso, a nossa produção é estritamente artesanal, feita sob encomenda para garantir o máximo de frescura, textura e sabor.
-            </p>
           </div>
 
           <div className="space-y-6">
@@ -73,20 +110,22 @@ export default function SobrePage() {
           </div>
         </div>
         {/* LOCALIZAÇÃO */}
-        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d707.327570278918!2d-23.526897715286996!3d14.94620238240853!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1spt-PT!2scv!4v1786446298190!5m2!1spt-PT!2scv"
-          width="400" height="300"
-          style={{ border: 0 }}
-          allowFullScreen loading="lazy" referrerPolicy="strict-origin-when-cross-origin">
-        </iframe>
         <div className="flex items-center gap-3 p-3 bg-gray-50/50 border border-gray-100 rounded-xl">
-          <div className="text-amber-600 shrink-0" style={{ transform: "rotate(-10deg)" }}>📍</div>
           <div>
             <p className="text-[10px] tracking-widest text-gray-400 font-bold block normal-case">Localização</p>
             <span className="text-gray-900">Cabo Verde
               <br></br>
               Praia
               <br></br>
-              São Pedro -<strong>Casa Para Todos/1ª Lote</strong>,  </span>
+              São Pedro -<strong>Casa Para Todos/1ª Lote</strong>📍</span>
+          </div>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d707.327570278918!2d-23.526897715286996!3d14.94620238240853!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1spt-PT!2scv!4v1786446298190!5m2!1spt-PT!2scv"
+            width="400" height="300"
+            style={{ border: 0 }}
+            allowFullScreen loading="lazy" referrerPolicy="strict-origin-when-cross-origin">
+          </iframe>
+          <div className="flex items-center gap-3 p-3 bg-gray-50/50 border border-gray-100 rounded-xl">
+            <div className="text-amber-600 shrink-0" style={{ transform: "rotate(-10deg)" }}></div>
           </div>
         </div>
 
