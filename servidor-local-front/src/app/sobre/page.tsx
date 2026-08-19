@@ -15,7 +15,7 @@ export default function SobrePage() {
   const router = useRouter();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50/50 to-white text-gray-950 antialiased font-sans">
+    <div className="min-h-screen bg-amber-50 text-gray-950 antialiased font-sans">
 
       {/* HEADER / BARRA DE NAVEGAÇÃO SUPERIOR */}
       <NeonBorder
@@ -53,6 +53,8 @@ export default function SobrePage() {
       <div className="relative flex min-h-screen w-full flex-col items-start justify-start overflow-hidden">
         <BackgroundRippleEffect />
         <div className="mt-60 w-full text-start-900">
+          <p className="text-center mt-4"> <strong className="text-amber-700">Bem-vindo(a) ao </strong></p>
+          <br></br>
           <h2 className="relative z-10 mx-auto max-w-4xl text-center text-2xl font-bold text-neutral-800 md:text-4xl lg:text-7xl dark:text-neutral-100">
             Delícias da Isabel
           </h2>
@@ -60,17 +62,50 @@ export default function SobrePage() {
             <span className="text-amber-700 font-bold">Onde a tradição encontra a modernidade,</span> cada doce e cada salgado é feito com amor e dedicação.
             Acreditamos que a comida não alimenta apenas o corpo, mas celebra momentos. Por isso, a nossa produção é estritamente artesanal, feita sob encomenda para garantir o máximo de frescura, textura e sabor.
             <br></br>
-           <span className="text-amber-700 font-bold">Acreditamos que a comida não alimenta apenas o corpo, mas celebra momentos.</span>
+            <span className="text-amber-700 font-bold">Acreditamos que a comida não alimenta apenas o corpo, mas celebra momentos.</span>
           </p>
         </div>
+
+        <div className="w-full p-12 bg-amber-50">
+
+          <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            {/* --- COLUNA 1: Filosofia --- */}
+            <div className="space-y-6">
+              <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center text-amber-600 ring-1 ring-amber-50">
+                <UtensilsCrossed size={22} />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 font-display">Filosofia</h3>
+              <p className="text-gray-700 leading-relaxed">
+                O projeto <strong>Delícias da Isabel</strong> nasceu da paixão por transformar ingredientes simples em experiências gastronómicas memoráveis. Cada doce e cada salgado que sai da nossa cozinha carrega uma herança de rigor, dedicação e técnica.
+              </p>
+            </div>
+
+            {/* --- COLUNA 2: Chef Isabel --- */}
+            <div className="space-y-6">
+              <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center text-amber-600 ring-1 ring-amber-50">
+                <UtensilsCrossed size={22} />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 font-display">A Chef</h3>
+              <p className="text-gray-700 leading-relaxed">
+                Sob a liderança criativa da Chef Isabel, a marca destaca-se pelo equilíbrio perfeito entre receitas tradicionais e uma apresentação moderna de estética minimalista.
+              </p>
+            </div>
+
+            {/* --- COLUNA 3: Missão --- */}
+            <div className="space-y-6">
+              <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center text-amber-600 ring-1 ring-amber-50">
+                <UtensilsCrossed size={22} />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 font-display">Missão</h3>
+              <p className="text-gray-700 leading-relaxed">
+                A nossa missão é elevar a confeitaria e os salgados tradicionais ao nível de arte, servidos com excelência.
+              </p>
+            </div>
+
+          </div>
+        </div>
       </div>
-
-
-
-
-
-
-
 
       {/* TÍTULO COM EFEITO LAMP */}
       <LampContainer>
@@ -84,40 +119,25 @@ export default function SobrePage() {
           }}
           className="mt-8 bg-gradient-to-br from-amber-600 to-amber-900 py-4 bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-7xl"
         >
-          A Nossa <br /> História
+          Mais informações sobre <br /> Delícias da Isabel
         </motion.h1>
       </LampContainer>
 
       {/* CONTEÚDO PRINCIPAL */}
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 -mt-32 relative z-10">
 
-        {/* Bloco de Texto Conceitual */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 text-gray-700 leading-relaxed text-sm border-t border-amber-200/60 pt-12">
-          <div className="space-y-6">
-            <p>
-              O projeto <strong className="text-amber-700 font-bold">Delícias da Isabel</strong> nasceu da paixão por transformar ingredientes simples em experiências gastronómicas memoráveis. Cada doce e cada salgado que sai da nossa cozinha carrega uma herança de rigor, dedicação e técnica.
-            </p>
-          </div>
 
-          <div className="space-y-6">
-            <p>
-              Sob a liderança criativa da Chef Isabel, a marca destaca-se pelo equilíbrio perfeito entre receitas tradicionais e uma apresentação moderna de estética minimalista.
-            </p>
 
-            <blockquote className="border-l-4 border-amber-500 pl-4 italic text-gray-900 font-medium my-4">
-              "A nossa missão é elevar a confeitaria e os salgados tradicionais ao nível de arte, servidos com excelência."
-            </blockquote>
-          </div>
-        </div>
+
         {/* LOCALIZAÇÃO */}
+        <span className="text-amber-700 mt-0.5 shrink-0"><strong>Localização</strong>📍</span>
         <div className="flex items-center gap-3 p-3 bg-gray-50/50 border border-gray-100 rounded-xl">
           <div>
-            <p className="text-[10px] tracking-widest text-gray-400 font-bold block normal-case">Localização</p>
-            <span className="text-gray-900">Cabo Verde
+            <span className="text-amber-700">Cabo Verde
               <br></br>
-              Praia
+              <strong className="text-amber-700"> Praia</strong>
               <br></br>
-              São Pedro -<strong>Casa Para Todos/1ª Lote</strong>📍</span>
+              São Pedro -<strong className="text-amber-700">Casa Para Todos/1ª Lote</strong></span>
           </div>
           <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d707.327570278918!2d-23.526897715286996!3d14.94620238240853!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1spt-PT!2scv!4v1786446298190!5m2!1spt-PT!2scv"
             width="400" height="300"
@@ -128,6 +148,7 @@ export default function SobrePage() {
             <div className="text-amber-600 shrink-0" style={{ transform: "rotate(-10deg)" }}></div>
           </div>
         </div>
+
 
 
         {/* REGRA DE ENCOMENDA (AVISO DE 50%) */}
