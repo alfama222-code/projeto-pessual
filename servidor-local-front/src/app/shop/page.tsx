@@ -22,7 +22,7 @@ export default function ShopPage() {
   useEffect(() => {
     const buscarProdutos = async () => {
       try {
-        const resposta = await fetch("http://localhost:3001/api/produtos");
+        const resposta = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/produtos`);
         if (resposta.ok) {
           const dados = await resposta.json();
           setProdutos(dados);
@@ -79,7 +79,7 @@ export default function ShopPage() {
     };
 
     try {
-      await fetch("http://localhost:3001/api/pedidos", {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/pedidos`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(pedidoData)

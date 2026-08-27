@@ -67,7 +67,7 @@ export default function AdminDashboard() {
     // Buscar dados
     const fetchDados = async () => {
       try {
-        const res = await fetch("http://localhost:3001/api/pedidos");
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/pedidos`);
         if (res.ok) {
           const data = await res.json();
           setPedidos(data.pedidos);
