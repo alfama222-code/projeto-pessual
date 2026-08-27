@@ -8,7 +8,8 @@ import {
   Package,
   Calendar,
   Clock,
-  ChevronLeft
+  ChevronLeft,
+  Key
 } from "lucide-react";
 
 type ItemPedido = {
@@ -46,6 +47,10 @@ export default function AdminDashboard() {
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [passwordInput, setPasswordInput] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [changePasswordError, setChangePasswordError] = useState("");
+  const [passwordSuccess, setPasswordSuccess] = useState("");
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   useEffect(() => {
     // Autenticação básica
@@ -78,22 +83,35 @@ export default function AdminDashboard() {
     fetchDados();
   }, [router]);
 
-  const handleLogout = () => {
-    localStorage.removeItem("auth_token");
-    localStorage.removeItem("user_data");
+  const handleLeaveAdmin = () => {
     sessionStorage.removeItem("admin_unlocked");
-    router.push("/login");
+    router.push("/shop");
   };
 
   const handleUnlock = (e: React.FormEvent) => {
     e.preventDefault();
-    if (passwordInput === "isabel2026") {
+    const storedPassword = localStorage.getItem("admin_password") || "isabel2026";
+    if (passwordInput === storedPassword) {
       sessionStorage.setItem("admin_unlocked", "true");
       setIsUnlocked(true);
       setPasswordError("");
     } else {
       setPasswordError("Senha incorreta!");
     }
+  };
+
+  const handleChangePassword = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newPassword.length < 6) {
+      setChangePasswordError("A nova senha deve ter pelo menos 6 caracteres.");
+      setPasswordSuccess("");
+      return;
+    }
+    localStorage.setItem("admin_password", newPassword);
+    setNewPassword("");
+    setChangePasswordError("");
+    setPasswordSuccess("Senha alterada com sucesso!");
+    setTimeout(() => setPasswordSuccess(""), 3000);
   };
 
   if (!isUnlocked) {
@@ -161,13 +179,47 @@ export default function AdminDashboard() {
               <p className="text-xs text-gray-500 font-medium">Gestão de Vendas & Encomendas</p>
             </div>
           </div>
-          <button
-            onClick={handleLogout}
-            className="flex items-center gap-2 bg-red-50 text-red-600 hover:bg-red-100 px-4 py-2 rounded-xl transition-colors font-bold text-xs uppercase tracking-wide"
-          >
-            <LogOut size={16} />
-            <span className="hidden sm:inline">Sair</span>
-          </button>
+          <div className="flex items-center gap-2 relative">
+            <button
+              onClick={() => setIsSettingsOpen(!isSettingsOpen)}
+              className="flex items-center gap-2 bg-gray-50 text-gray-700 hover:bg-gray-100 px-4 py-2 rounded-xl transition-colors font-bold text-xs uppercase tracking-wide"
+            >
+              <Key size={16} />
+              <span className="hidden sm:inline">Senha</span>
+            </button>
+            <button
+              onClick={handleLeaveAdmin}
+              className="flex items-center gap-2 bg-amber-50 text-amber-700 hover:bg-amber-100 px-4 py-2 rounded-xl transition-colors font-bold text-xs uppercase tracking-wide"
+            >
+              <LogOut size={16} />
+              <span className="hidden sm:inline">Sair do Painel</span>
+            </button>
+
+            {isSettingsOpen && (
+              <div className="absolute top-12 right-0 mt-2 w-72 bg-white rounded-2xl shadow-xl border border-gray-100 p-5 z-50 animate-fade-in">
+                <h3 className="text-sm font-bold text-gray-800 mb-2">Alterar Senha</h3>
+                <form onSubmit={handleChangePassword} className="space-y-3">
+                  <div>
+                    <input
+                      type="password"
+                      placeholder="Nova Senha (mín. 6)"
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                      className="w-full px-3 py-2 rounded-lg border border-gray-200 focus:border-amber-500 outline-none text-xs"
+                    />
+                    {changePasswordError && <p className="text-[10px] text-red-500 font-bold mt-1 ml-1">{changePasswordError}</p>}
+                  </div>
+                  <button
+                    type="submit"
+                    className="w-full bg-amber-500 hover:bg-amber-600 text-white font-black tracking-widest uppercase text-[10px] px-4 py-2.5 rounded-lg transition-all shadow-md shadow-amber-500/20"
+                  >
+                    Atualizar Senha
+                  </button>
+                  {passwordSuccess && <p className="text-[10px] font-bold text-green-600 mt-1">{passwordSuccess}</p>}
+                </form>
+              </div>
+            )}
+          </div>
         </div>
       </header>
 

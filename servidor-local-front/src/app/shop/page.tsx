@@ -371,6 +371,8 @@ export default function ShopPage() {
               </p>
             </div>
 
+            <br /><br /><br />
+
             <div className="space-y-3">
               <h4 className="text-xs font-black tracking-widest uppercase text-amber-400">Funcionamento</h4>
               <ul className="text-xs space-y-2 uppercase tracking-wide text-amber-100/80">
@@ -378,23 +380,6 @@ export default function ShopPage() {
                 <li>Domingo: 10h — 16h</li>
                 <li className="text-amber-700/80">Segunda-feira: Encerrado</li>
               </ul>
-            </div>
-
-            <div className="space-y-3">
-              <h4 className="text-xs font-black tracking-widest uppercase text-amber-400">Encomendas</h4>
-              <p className="text-xs text-amber-100/80 uppercase tracking-wide leading-relaxed">
-                Aceitamos pedidos programados para eventos e catering através do nosso canal digital.
-              </p>
-              <div className="pt-2">
-                <a 
-                  href="https://wa.me/2389814798"
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="inline-block text-[11px] font-black tracking-widest uppercase bg-amber-500 text-white px-5 py-2.5 rounded-xl hover:bg-amber-600 transition-colors duration-200 shadow-md shadow-amber-500/10"
-                >
-                  WhatsApp Geral
-                </a>
-              </div>
             </div>
           </div>
 

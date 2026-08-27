@@ -126,41 +126,46 @@ export default function SobrePage() {
       {/* CONTEÚDO PRINCIPAL */}
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 -mt-32 relative z-10">
 
-
-
-
-        {/* LOCALIZAÇÃO */}
-        <span className="text-amber-700 mt-0.5 shrink-0"><strong>Localização</strong>📍</span>
-        <div className="flex items-center gap-3 p-3 bg-gray-50/50 border border-gray-100 rounded-xl">
-          <div>
-            <span className="text-amber-700">Cabo Verde
-              <br></br>
-              <strong className="text-amber-700"> Praia</strong>
-              <br></br>
-              São Pedro -<strong className="text-amber-700">Casa Para Todos/1ª Lote</strong></span>
-          </div>
-          <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d707.327570278918!2d-23.526897715286996!3d14.94620238240853!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1spt-PT!2scv!4v1786446298190!5m2!1spt-PT!2scv"
-            width="400" height="300"
-            style={{ border: 0 }}
-            allowFullScreen loading="lazy" referrerPolicy="strict-origin-when-cross-origin">
-          </iframe>
-          <div className="flex items-center gap-3 p-3 bg-gray-50/50 border border-gray-100 rounded-xl">
-            <div className="text-amber-600 shrink-0" style={{ transform: "rotate(-10deg)" }}></div>
-          </div>
-        </div>
-
-
-
         {/* REGRA DE ENCOMENDA (AVISO DE 50%) */}
-        <div className="bg-amber-50 border border-amber-200/70 rounded-2xl p-5 mt-16 flex gap-3 items-start shadow-sm shadow-amber-500/5">
-          <div className="text-amber-600 mt-0.5 shrink-0">
-            <Info size={18} />
+        <br></br>
+        <div className="bg-amber-50 border border-amber-200/70 rounded-2xl p-5 mt-16 flex flex-col gap-4 shadow-sm shadow-amber-500/5">
+          <div className="flex flex-col md:flex-row gap-3 items-start">
+            <div className="text-amber-600 mt-0.5 shrink-0 hidden md:block">
+              <Info size={18} />
+            </div>
+            
+            <div className="flex-1 space-y-1 p-3 bg-gray-50/50 border border-gray-100 rounded-xl">
+              <div className="flex items-center gap-2 mb-2">
+                <Info size={16} className="text-amber-600 md:hidden" />
+                <h4 className="text-xs font-black tracking-widest uppercase text-amber-400">Política de Produção</h4>
+              </div>
+              <p className="text-xs text-amber-800/90 leading-relaxed uppercase tracking-wide font-medium">
+                Nota importante: Para garantirmos a frescura e reserva dos ingredientes, a produção e entrega do teu pedido só serão iniciadas após a confirmação do pagamento de <strong className="font-black text-amber-950">50% do valor total</strong>.
+              </p>
+            </div>
+
+            <div className="flex-1 flex items-center gap-3 p-3 bg-gray-50/50 border border-gray-100 rounded-xl">
+              <div className="text-amber-600 shrink-0" style={{ transform: "rotate(-10deg)" }}>
+              </div>
+              <div className="space-y-3">
+                <h4 className="text-xs font-black tracking-widest uppercase text-amber-400">Encomendas</h4>
+                <p className="text-xs text-amber-800/90 leading-relaxed uppercase tracking-wide font-medium">
+                  Agradecemos a sua preferência! <strong className="font-black text-amber-950">Pedimos que as encomendas sejam feitas com pelo menos 48 horas de antecedência.</strong>
+                  Aceitamos pedidos programados para eventos e <strong className="font-black text-amber-950">catering</strong> através do nosso canal digital.
+                </p>
+              </div>
+            </div>
           </div>
-          <div className="space-y-1">
-            <h4 className="text-xs font-black uppercase tracking-wider text-amber-900">Política de Produção</h4>
-            <p className="text-xs text-amber-800/90 leading-relaxed uppercase tracking-wide font-medium">
-              Nota importante: Para garantirmos a frescura e reserva dei ingredientes, a produção e entrega do teu pedido só serão iniciadas após a confirmação do pagamento de <strong className="font-black text-amber-950">50% do valor total</strong>.
-            </p>
+
+          <div className="mt-2 flex items-center justify-center">
+            <a 
+              href="https://wa.me/2389814798"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block text-[11px] font-black tracking-widest uppercase bg-amber-500 text-white px-5 py-2.5 rounded-xl hover:bg-amber-600 transition-colors duration-200 shadow-md shadow-amber-500/10"
+            >
+              WhatsApp Geral
+            </a>
           </div>
         </div>
 
@@ -248,10 +253,42 @@ export default function SobrePage() {
               </div>
             </div>
           </div>
-
         </div>
-
       </main>
+        {/* FOOTER PREMIUM */}
+      <footer className="w-full bg-gradient-to-b from-amber-950 to-neutral-950 text-white border-t border-amber-950 mt-24 transition-all duration-300">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 pb-12 border-b border-amber-900/30">
+            <div className="space-y-4">
+              <div className="flex items-center gap-2">
+                <div className="h-2.5 w-2.5 bg-amber-500 rounded-full" />
+                <span className="font-black tracking-widest text-sm uppercase text-amber-400">DELÍCIAS DA ISABEL</span>
+              </div>
+              <p className="text-xs text-amber-100/70 max-w-xs leading-relaxed uppercase tracking-wider">
+                Alta confeitaria e salgados artesanais. Elevando o sabor ao nível da arte.
+              </p>
+            </div>
+            <br /><br /><br />
+            <div className="space-y-3">
+              <h4 className="text-xs font-black tracking-widest uppercase text-amber-400">Funcionamento</h4>
+              <ul className="text-xs space-y-2 uppercase tracking-wide text-amber-100/80">
+                <li>Terça a Sábado: 09h — 20h</li>
+                <li>Domingo: 10h — 16h</li>
+                <li className="text-amber-700/80">Segunda-feira: Encerrado</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row justify-between items-center pt-8 text-[10px] tracking-widest uppercase text-amber-700 space-y-4 sm:space-y-0">
+            <p>© {new Date().getFullYear()} Delícias da Isabel. Todos os direitos reservados.</p>
+            <div className="flex gap-6">
+              <span className="hover:text-amber-400 transition-colors duration-200 cursor-pointer">Termos</span>
+              <span className="hover:text-amber-400 transition-colors duration-200 cursor-pointer">Privacidade</span>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
+    
   );
-}
+} 
