@@ -24,7 +24,7 @@ const produtos = [
 
 async function main() {
   console.log('Limpando produtos antigos...');
-  await prisma.produto.deleteMany();
+  // await prisma.produto.deleteMany();
 
   console.log('Iniciando o cadastro dos produtos...');
   for (const prod of produtos) {
