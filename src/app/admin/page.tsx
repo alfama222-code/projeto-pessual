@@ -67,7 +67,12 @@ export default function AdminDashboard() {
     // Buscar dados
     const fetchDados = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/pedidos`);
+        const token = localStorage.getItem("auth_token");
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/pedidos`, {
+          headers: {
+            "Authorization": `Bearer ${token}`
+          }
+        });
         if (res.ok) {
           const data = await res.json();
           setPedidos(data.pedidos);

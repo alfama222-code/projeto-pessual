@@ -22,7 +22,12 @@ export default function ShopPage() {
   useEffect(() => {
     const buscarProdutos = async () => {
       try {
-        const resposta = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/produtos`);
+        const token = localStorage.getItem("auth_token");
+        const resposta = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/produtos`, {
+          headers: {
+            "Authorization": `Bearer ${token}`
+          }
+        });
         if (resposta.ok) {
           const dados = await resposta.json();
           setProdutos(dados);
@@ -79,9 +84,13 @@ export default function ShopPage() {
     };
 
     try {
+      const token = localStorage.getItem("auth_token");
       await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/pedidos`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
         body: JSON.stringify(pedidoData)
       });
     } catch (error) {
