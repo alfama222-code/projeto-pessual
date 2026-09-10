@@ -17,15 +17,19 @@ export default function Navbar() {
 
   // Carrega as informações do usuário vindas do localStorage ao montar o componente
   useEffect(() => {
-    const nomeSalvo = localStorage.getItem("delicias_isabel_user_name");
-    const dataCriacaoSalva = localStorage.getItem("delicias_isabel_user_created");
+    const userDataString = localStorage.getItem("user_data");
     const tokenAdmin = localStorage.getItem("auth_token");
     
-    if (nomeSalvo || dataCriacaoSalva) {
-      setDadosUsuario({
-        nome: nomeSalvo || "Cliente Delícias",
-        criadoEm: dataCriacaoSalva || "Recente",
-      });
+    if (userDataString) {
+      try {
+        const userData = JSON.parse(userDataString);
+        setDadosUsuario({
+          nome: userData.nome || "Cliente Delícias",
+          criadoEm: "Recente",
+        });
+      } catch (e) {
+        console.error("Erro ao ler user_data do localStorage", e);
+      }
     }
 
     if (tokenAdmin) {
