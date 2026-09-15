@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { UtensilsCrossed, Phone, CreditCard, Info } from "lucide-react";
 import { motion } from "motion/react";
 import { LampContainer } from "../../components/ui/lamp";
-import NeonBorder from "@/servidor-local-front/src/components/ui/neon-border";
+import NeonBorder from "@/components/ui/neon-border";
 import { BackgroundRippleEffect } from "../../components/backgroundripple-effect";
 
 
