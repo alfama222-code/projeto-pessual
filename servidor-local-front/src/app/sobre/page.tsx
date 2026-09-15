@@ -1,0 +1,294 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import { UtensilsCrossed, Phone, CreditCard, Info } from "lucide-react";
+import { motion } from "motion/react";
+import { LampContainer } from "../../components/ui/lamp";
+import NeonBorder from "@/servidor-local-front/src/components/ui/neon-border";
+import { BackgroundRippleEffect } from "../../components/backgroundripple-effect";
+
+
+
+
+
+export default function SobrePage() {
+  const router = useRouter();
+
+  return (
+    <div className="min-h-screen bg-amber-50 text-gray-950 antialiased font-sans">
+
+      {/* HEADER / BARRA DE NAVEGAÇÃO SUPERIOR */}
+      <NeonBorder
+        color="#ff7700ff"
+        rounded={0}
+        thickness={2}
+        borderSize={40}
+        glow={60}
+        speed={10}
+        className="sticky top-0 z-50"
+        style={{ width: "100%", height: "auto" }}
+      >
+        <header className="w-full border-b border-amber-100 bg-white/80 backdrop-blur-md transition-all">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2 cursor-pointer group shrink-0" onClick={() => router.push("/shop")}>
+              <div className="bg-amber-500 text-white p-2 rounded-xl shadow-md shadow-amber-500/20 group-hover:scale-105 transition-transform">
+                <UtensilsCrossed size={18} />
+              </div>
+              <span className="text-base sm:text-xl font-extrabold tracking-tight bg-gradient-to-r from-amber-600 to-amber-800 bg-clip-text text-transparent">
+                Delícias da Isabel
+              </span>
+            </div>
+
+            <button
+              onClick={() => router.push("/shop")}
+              className="text-[11px] sm:text-xs font-black tracking-widest uppercase text-gray-600 hover:text-amber-600 transition-colors whitespace-nowrap"
+            >
+              ← <span className="hidden sm:inline">Ir à Loja</span> <span className="sm:hidden"></span>
+            </button>
+          </div>
+        </header>
+      </NeonBorder>
+
+      {/* imgaem de fundo  */}
+      <div className="relative flex min-h-screen w-full flex-col items-start justify-start overflow-hidden">
+        <BackgroundRippleEffect />
+        <div className="mt-60 w-full text-start-900">
+          <p className="text-center mt-4"> <strong className="text-amber-700">Bem-vindo(a) ao </strong></p>
+          <br></br>
+          <h2 className="relative z-10 mx-auto max-w-4xl text-center text-2xl font-bold text-neutral-800 md:text-4xl lg:text-7xl dark:text-neutral-100">
+            Delícias da Isabel
+          </h2>
+          <p className="relative z-10 mx-auto mt-4 max-w-xl text-center text-neutral-800 dark:text-neutral-500">
+            <span className="text-amber-700 font-bold">Onde a tradição encontra a modernidade,</span> cada doce e cada salgado é feito com amor e dedicação.
+            Acreditamos que a comida não alimenta apenas o corpo, mas celebra momentos. Por isso, a nossa produção é estritamente artesanal, feita sob encomenda para garantir o máximo de frescura, textura e sabor.
+            <br></br>
+            <span className="text-amber-700 font-bold">Acreditamos que a comida não alimenta apenas o corpo, mas celebra momentos.</span>
+          </p>
+        </div>
+
+        <div className="w-full p-12 bg-amber-50">
+
+          <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            {/* --- COLUNA 1: Filosofia --- */}
+            <div className="space-y-6">
+              <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center text-amber-600 ring-1 ring-amber-50">
+                <UtensilsCrossed size={22} />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 font-display">Filosofia</h3>
+              <p className="text-gray-700 leading-relaxed">
+                O projeto <strong>Delícias da Isabel</strong> nasceu da paixão por transformar ingredientes simples em experiências gastronómicas memoráveis. Cada doce e cada salgado que sai da nossa cozinha carrega uma herança de rigor, dedicação e técnica.
+              </p>
+            </div>
+
+            {/* --- COLUNA 2: Chef Isabel --- */}
+            <div className="space-y-6">
+              <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center text-amber-600 ring-1 ring-amber-50">
+                <UtensilsCrossed size={22} />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 font-display">A Chef</h3>
+              <p className="text-gray-700 leading-relaxed">
+                Sob a liderança criativa da Chef Isabel, a marca destaca-se pelo equilíbrio perfeito entre receitas tradicionais e uma apresentação moderna de estética minimalista.
+              </p>
+            </div>
+
+            {/* --- COLUNA 3: Missão --- */}
+            <div className="space-y-6">
+              <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center text-amber-600 ring-1 ring-amber-50">
+                <UtensilsCrossed size={22} />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 font-display">Missão</h3>
+              <p className="text-gray-700 leading-relaxed">
+                A nossa missão é elevar a confeitaria e os salgados tradicionais ao nível de arte, servidos com excelência.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      {/* TÍTULO COM EFEITO LAMP */}
+      <LampContainer>
+        <motion.h1
+          initial={{ opacity: 0.5, y: 100 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{
+            delay: 0.3,
+            duration: 0.8,
+            ease: "easeInOut",
+          }}
+          className="mt-8 bg-gradient-to-br from-amber-600 to-amber-900 py-4 bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-7xl"
+        >
+          Mais informações sobre <br /> Delícias da Isabel
+        </motion.h1>
+      </LampContainer>
+
+      {/* CONTEÚDO PRINCIPAL */}
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 -mt-32 relative z-10">
+
+        {/* REGRA DE ENCOMENDA (AVISO DE 50%) */}
+        <br></br>
+        <div className="bg-amber-50 border border-amber-200/70 rounded-2xl p-5 mt-16 flex flex-col gap-4 shadow-sm shadow-amber-500/5">
+          <div className="flex flex-col md:flex-row gap-3 items-start">
+            <div className="text-amber-600 mt-0.5 shrink-0 hidden md:block">
+              <Info size={18} />
+            </div>
+
+            <div className="flex-1 space-y-1 p-3 bg-gray-50/50 border border-gray-100 rounded-xl">
+              <div className="flex items-center gap-2 mb-2">
+                <Info size={16} className="text-amber-600 md:hidden" />
+                <h4 className="text-xs font-black tracking-widest uppercase text-amber-400">Política de Produção</h4>
+              </div>
+              <p className="text-xs text-amber-800/90 leading-relaxed uppercase tracking-wide font-medium">
+                Nota importante: Para garantirmos a frescura e reserva dos ingredientes, a produção e entrega do teu pedido só serão iniciadas após a confirmação do pagamento de <strong className="font-black text-amber-950">50% do valor total</strong>.
+              </p>
+            </div>
+
+            <div className="flex-1 flex items-center gap-3 p-3 bg-gray-50/50 border border-gray-100 rounded-xl">
+              <div className="text-amber-600 shrink-0" style={{ transform: "rotate(-10deg)" }}>
+              </div>
+              <div className="space-y-3">
+                <h4 className="text-xs font-black tracking-widest uppercase text-amber-400">Encomendas</h4>
+                <p className="text-xs text-amber-800/90 leading-relaxed uppercase tracking-wide font-medium">
+                  Agradecemos a sua preferência! <strong className="font-black text-amber-950">Pedimos que as encomendas sejam feitas com pelo menos 48 horas de antecedência.</strong>
+                  Aceitamos pedidos programados para eventos e <strong className="font-black text-amber-950">catering</strong> através do nosso canal digital.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-2 flex items-center justify-center">
+            <a
+              href="https://wa.me/2389814798"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block text-[11px] font-black tracking-widest uppercase bg-amber-500 text-white px-5 py-2.5 rounded-xl hover:bg-amber-600 transition-colors duration-200 shadow-md shadow-amber-500/10"
+            >
+              WhatsApp Geral
+            </a>
+          </div>
+        </div>
+
+        {/* INFORMAÇÕES DE CONTACTO E DADOS BANCÁRIOS */}
+        <div className="bg-white border border-amber-100 rounded-2xl p-8 mt-6 space-y-8 shadow-sm">
+
+          {/* Canais Sociais e Telefónicos */}
+          <div className="space-y-4">
+            <h3 className="text-xs font-black tracking-widest uppercase text-amber-600">Canais de Contacto</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-xs uppercase tracking-wider font-bold text-gray-800">
+
+              {/* TELEFONE */}
+              <div className="flex items-center gap-3 p-3 bg-gray-50/50 border border-gray-100 rounded-xl">
+                <div className="text-amber-600 shrink-0"><Phone size={16} /></div>
+                <div>
+                  <p className="text-[10px] tracking-widest text-gray-400 font-bold block normal-case">Telefone / WhatsApp</p>
+                  <a href="https://wa.me/2389814798" target="_blank" rel="noopener noreferrer" className="hover:text-amber-600 transition-colors">
+                    +238 981 4798
+                  </a>
+                </div>
+              </div>
+
+              {/* INSTAGRAM (SVG NATIVO) */}
+              <div className="flex items-center gap-3 p-3 bg-gray-50/50 border border-gray-100 rounded-xl">
+                <div className="text-amber-600 shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-[10px] tracking-widest text-gray-400 font-bold block normal-case">Instagram</p>
+                  <a href="https://instagram.com/isabel.teixeira.92167" target="_blank" rel="noopener noreferrer" className="hover:text-amber-600 transition-colors">
+                    @isabelteixeira
+                  </a>
+                </div>
+              </div>
+
+              {/* FACEBOOK (SVG NATIVO) */}
+              <div className="flex items-center gap-3 p-3 bg-gray-50/50 border border-gray-100 rounded-xl">
+                <div className="text-amber-600 shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-[10px] tracking-widest text-gray-400 font-bold block normal-case">Facebook</p>
+                  <a href="https://facebook.com/IsabelTeixeira" target="_blank" rel="noopener noreferrer" className="hover:text-amber-600 transition-colors">
+                    Isabel Teixeira
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Dados Bancários para Transferência */}
+          <div className="pt-6 border-t border-gray-100 space-y-4">
+            <h3 className="text-xs font-black tracking-widest uppercase text-amber-600 flex items-center gap-2">
+              <CreditCard size={15} /> Dados de Pagamento (Transferência)
+            </h3>
+
+            <div className="bg-neutral-900 text-white p-6 rounded-2xl space-y-4 font-mono shadow-inner relative overflow-hidden">
+              <div className="absolute -right-6 -bottom-6 w-32 h-32 bg-amber-500/10 rounded-full blur-xl" />
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs tracking-wider uppercase">
+                <div>
+                  <span className="text-[10px] text-neutral-400 block font-sans normal-case mb-0.5">Banco</span>
+                  <span className="text-amber-400 font-bold">Banco Comercial do Atlântico (BCA)</span>
+                </div>
+                <div>
+                  <span className="text-[10px] text-neutral-400 block font-sans normal-case mb-0.5">Titular da Conta</span>
+                  <span className="text-white font-bold">Isabel Pina Teixeira</span>
+                </div>
+              </div>
+
+              <div className="pt-2">
+                <span className="text-[10px] text-neutral-400 block font-sans normal-case mb-0.5">Número de Conta</span>
+                <span className="text-base sm:text-lg text-white font-black tracking-widest block select-all bg-neutral-800/50 px-3 py-2 rounded-xl border border-neutral-800">
+                  0001 2345 6789 10
+                </span>
+                <span className="text-[9px] text-amber-500/70 block mt-1 font-sans normal-case">
+                  * Envia o comprovativo de transferência via WhatsApp juntamente com o sumário do teu pedido.
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      {/* FOOTER PREMIUM */}
+      <footer className="w-full bg-gradient-to-b from-amber-950 to-neutral-950 text-white border-t border-amber-950 mt-24 transition-all duration-300">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 pb-12 border-b border-amber-900/30">
+            <div className="space-y-4">
+              <div className="flex items-center gap-2">
+                <div className="h-2.5 w-2.5 bg-amber-500 rounded-full" />
+                <span className="font-black tracking-widest text-sm uppercase text-amber-400">DELÍCIAS DA ISABEL</span>
+              </div>
+              <p className="text-xs text-amber-100/70 max-w-xs leading-relaxed uppercase tracking-wider">
+                Alta confeitaria e salgados artesanais. Elevando o sabor ao nível da arte.
+              </p>
+            </div>
+            <br /><br /><br />
+            <div className="space-y-3">
+              <h4 className="text-xs font-black tracking-widest uppercase text-amber-400">Funcionamento</h4>
+              <ul className="text-xs space-y-2 uppercase tracking-wide text-amber-100/80">
+                <li>Terça a Sábado: 09h — 20h</li>
+                <li>Domingo: 10h — 16h</li>
+                <li className="text-amber-700/80">Segunda-feira: Encerrado</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row justify-between items-center pt-8 text-[10px] tracking-widest uppercase text-amber-700 space-y-4 sm:space-y-0">
+            <p>© {new Date().getFullYear()} Delícias da Isabel. Todos os direitos reservados.</p>
+            <div className="flex gap-6">
+              <span className="hover:text-amber-400 transition-colors duration-200 cursor-pointer">Termos</span>
+              <span className="hover:text-amber-400 transition-colors duration-200 cursor-pointer">Privacidade</span>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+  );
+} 
